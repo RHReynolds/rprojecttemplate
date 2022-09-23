@@ -97,9 +97,9 @@ Reynolds</h4>
 <div class="section level2">
 <h2 id="quick-start-to-using-to-rprojecttemplate">Quick start to using to <code>rprojecttemplate</code><a class="anchor" aria-label="anchor" href="#quick-start-to-using-to-rprojecttemplate"></a>
 </h2>
-<p>This [R] package was made for personal use, and aims to create an R
-project directory primed for data analysis. It has a simple focus
-on:</p>
+<p>This <code>R</code> package was made for personal use, and aims to
+create an R project directory primed for data analysis. It has a simple
+focus on:</p>
 <ol style="list-style-type: decimal">
 <li>Creating a standardized project folder structure with a few template
 files needed for beginning a data analysis project</li>
@@ -112,11 +112,128 @@ and is intended for use with RStudio.</p>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
+<div class="section level3">
+<h3 id="my-typical-workflow">My typical workflow<a class="anchor" aria-label="anchor" href="#my-typical-workflow"></a>
+</h3>
+<p>Personally, I believe all data analyses should be hosted on Github –
+both for reproducibility, but also for your own version control.</p>
+<p>Pre-publication, these can be hosted as private repositories and made
+public on release of a paper. Just remember to think about whether your
+repository contains any sensitive information (e.g. patient-identifiable
+information or IP addresses for private servers).</p>
+<p>My typical workflow is:</p>
+<ol style="list-style-type: decimal">
+<li>Create a Github repository on the Github website, as detailed in
+this <a href="https://docs.github.com/en/get-started/quickstart/create-a-repo" class="external-link">guide</a>.</li>
+<li>Start a new project in RStudio via “File -&gt; New Project”, then
+“Version Control –&gt; Git”.</li>
+<li>Set up my analysis project with
+<code><a href="../reference/setup_project.html">rprojecttemplate::setup_project()</a></code>.</li>
+<li>Make an initial git commit with analysis template.</li>
+</ol>
+</div>
+<div class="section level3">
+<h3 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
+</h3>
+<p>There are two ways of creating a new project: using the R console or
+using the RStudio “New Project” menu option.</p>
+<p>Through the console, use the <code><a href="../reference/setup_project.html">setup_project()</a></code> command.
+For example:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RHReynolds/rprojecttemplate" class="external-link">rprojecttemplate</a></span><span class="op">)</span></span>
+<span><span class="co"># Create a temporary folder using the fs package</span></span>
+<span><span class="va">new_project_path</span> <span class="op">&lt;-</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/file_temp.html" class="external-link">path_temp</a></span><span class="op">(</span><span class="st">"example"</span><span class="op">)</span></span>
+<span><span class="fu">rprojecttemplate</span><span class="fu">::</span><span class="fu"><a href="../reference/setup_project.html">setup_project</a></span><span class="op">(</span><span class="va">new_project_path</span><span class="op">)</span></span></code></pre></div>
+<p>This then creates a directory tree, with template files for starting
+your analysis. Open the newly created project via the
+<code>.Rproj</code> file.</p>
+<p>For the RStudio approach, go to “File -&gt; New Project”, then “New
+directory” and find the <code>rprojecttemplate</code> project in the
+list.</p>
+<p>The resulting file structure should look something like this:</p>
+<pre><code> [01;34mexample [0m
+├── DESCRIPTION
+├──  [01;34mR [0m
+│   ├── README.md
+│   └──  [32mexample_function.R [0m
+├── README.rmd
+├── TODO.md
+├──  [01;34mdocs [0m
+│   ├── 01_example_analysis.html
+│   ├── 01_example_analysis.rmd
+│   ├── README.md
+│   └── index.md
+├── example.Rproj
+├──  [01;34mlogs [0m
+│   └── README.md
+├──  [01;34mraw_data [0m
+│   └── README.md
+├──  [01;34mresults [0m
+│   └── README.md
+└──  [01;34mscripts [0m
+    ├──  [32m01a_example_script.R [0m
+    └── README.md</code></pre>
+<p><code>README</code> files are contained within each project and in
+each folder that explains a bit more about what each folder and file are
+used for, which is briefly described here:</p>
+<ul>
+<li>
+<code>DESCRIPTION</code>: Is a standard file that includes metadata
+about your project, in a machine readable format, and that also stores a
+list of the R packages your project depends on. An example function is
+included. Consider using <a href="https://roxygen2.r-lib.org/" class="external-link">roxygen-style</a> documentation of
+your functions.</li>
+<li>
+<code>.Rproj</code>: Is a standard file used by RStudio to set some
+R Project specific settings.</li>
+<li>
+<code>R/</code>: Should contain the functions called in
+<code>docs/</code> and <code>scripts/</code>.</li>
+<li>
+<code>docs/</code>: Should contain all <code>.Rmd</code>s and their
+corresponding <code>.html</code>s describing analyses performed for this
+project. An example <code>.rmd</code> is included along with a table of
+contents (<code>index.md</code>), which describes the purpose of each
+analysis and can be used as a landing page if you choose to host your
+<code>docs/</code> on <a href="https://pages.github.com/" class="external-link">github
+pages</a>.</li>
+<li>
+<code>raw_data/</code>: Folder should either:
+<ul>
+<li>Contain the raw, unprocessed data used specifically for each
+analysis.</li>
+<li>In those situations where raw data files are too large to be loaded
+to github, consider:
+<ul>
+<li>Uploading those files to a repository like zenodo or figshare
+(assuming they are do not contain patient-sensitive information).</li>
+<li>If the files are publicly available, include either a script with
+commands to download these files can be a text file describing where and
+how to download these files.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<code>results/</code>: Results generated from any analyses/scripts
+that are part of the project should be stored here as data files.</li>
+<li>
+<code>scripts/</code>: Contains analysis scripts. Each script should
+contain a one-line description and should be named such that it
+corresponds to an <code>.Rmd</code> in <code>docs/</code>. Consider
+using numbering and lettering to denote the sequence in which scripts
+should be run.</li>
+</ul>
+<p>The template I use for my analysis <code>.rmd</code>s can be
+installed using my <a href="https://github.com/RHReynolds/rmdplate" class="external-link"><code>rmdplate</code>
+package</a>. Alternatively, consider making your own template.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="acknowledgements">Acknowledgements<a class="anchor" aria-label="anchor" href="#acknowledgements"></a>
 </h2>
-<p>This package was inspired by the <a href="https://github.com/rostools/prodigenr" class="external-link"><code>prodigenr</code></a>
+<p>This package was heavily inspired by the <a href="https://github.com/rostools/prodigenr" class="external-link"><code>prodigenr</code></a>
+package, thus be sure to cite it if you use this <code>R</code>
 package.</p>
 </div>
 <div class="section level2">
@@ -138,39 +255,51 @@ Show/hide
 <span><span class="co">#&gt;  pandoc   2.18 @ /usr/local/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">package    </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version</span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span></span>
-<span><span class="co">#&gt;  BiocManager   1.30.18 <span style="color: #555555;">2022-05-18</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
-<span><span class="co">#&gt;  BiocStyle   * 2.24.0  <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  bookdown      0.29    <span style="color: #555555;">2022-09-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  bslib         0.4.0   <span style="color: #555555;">2022-07-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  cachem        1.0.6   <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  cli           3.4.0   <span style="color: #555555;">2022-09-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  desc          1.4.2   <span style="color: #555555;">2022-09-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  digest        0.6.29  <span style="color: #555555;">2021-12-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  evaluate      0.16    <span style="color: #555555;">2022-08-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  fastmap       1.1.0   <span style="color: #555555;">2021-01-25</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  fs            1.5.2   <span style="color: #555555;">2021-12-08</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  htmltools     0.5.3   <span style="color: #555555;">2022-07-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  jquerylib     0.1.4   <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  jsonlite      1.8.0   <span style="color: #555555;">2022-02-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  knitr         1.40    <span style="color: #555555;">2022-08-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  magrittr      2.0.3   <span style="color: #555555;">2022-03-30</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  memoise       2.0.1   <span style="color: #555555;">2021-11-26</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  pkgdown       2.0.6   <span style="color: #555555;">2022-07-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  purrr         0.3.4   <span style="color: #555555;">2020-04-17</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  R6            2.5.1   <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  ragg          1.2.2   <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  rlang         1.0.5   <span style="color: #555555;">2022-08-31</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  rmarkdown     2.16    <span style="color: #555555;">2022-08-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  rprojroot     2.0.3   <span style="color: #555555;">2022-04-02</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  sass          0.4.2   <span style="color: #555555;">2022-07-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  sessioninfo * 1.2.2   <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  stringi       1.7.8   <span style="color: #555555;">2022-07-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  stringr       1.4.1   <span style="color: #555555;">2022-08-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  systemfonts   1.0.4   <span style="color: #555555;">2022-02-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  textshaping   0.3.6   <span style="color: #555555;">2021-10-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  xfun          0.33    <span style="color: #555555;">2022-09-12</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  yaml          2.3.5   <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">package         </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version</span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span></span>
+<span><span class="co">#&gt;  BiocManager        1.30.18 <span style="color: #555555;">2022-05-18</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.1)</span></span></span>
+<span><span class="co">#&gt;  BiocStyle        * 2.24.0  <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  bookdown           0.29    <span style="color: #555555;">2022-09-12</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  bslib              0.4.0   <span style="color: #555555;">2022-07-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  cachem             1.0.6   <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  cli                3.4.0   <span style="color: #555555;">2022-09-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  crayon             1.5.1   <span style="color: #555555;">2022-03-26</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  desc               1.4.2   <span style="color: #555555;">2022-09-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  digest             0.6.29  <span style="color: #555555;">2021-12-01</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  evaluate           0.16    <span style="color: #555555;">2022-08-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  fansi              1.0.3   <span style="color: #555555;">2022-03-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  fastmap            1.1.0   <span style="color: #555555;">2021-01-25</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  fs                 1.5.2   <span style="color: #555555;">2021-12-08</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  glue               1.6.2   <span style="color: #555555;">2022-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  htmltools          0.5.3   <span style="color: #555555;">2022-07-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  jquerylib          0.1.4   <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  jsonlite           1.8.0   <span style="color: #555555;">2022-02-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  knitr              1.40    <span style="color: #555555;">2022-08-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  lifecycle          1.0.2   <span style="color: #555555;">2022-09-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  magrittr           2.0.3   <span style="color: #555555;">2022-03-30</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  memoise            2.0.1   <span style="color: #555555;">2021-11-26</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  pillar             1.8.1   <span style="color: #555555;">2022-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  pkgconfig          2.0.3   <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  pkgdown            2.0.6   <span style="color: #555555;">2022-07-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  purrr              0.3.4   <span style="color: #555555;">2020-04-17</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  R6                 2.5.1   <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  ragg               1.2.2   <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  rlang              1.0.5   <span style="color: #555555;">2022-08-31</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  rmarkdown          2.16    <span style="color: #555555;">2022-08-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  rprojecttemplate * 0.99.0  <span style="color: #555555;">2022-09-23</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  rprojroot          2.0.3   <span style="color: #555555;">2022-04-02</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  sass               0.4.2   <span style="color: #555555;">2022-07-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  sessioninfo      * 1.2.2   <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  stringi            1.7.8   <span style="color: #555555;">2022-07-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  stringr            1.4.1   <span style="color: #555555;">2022-08-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  systemfonts        1.0.4   <span style="color: #555555;">2022-02-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  textshaping        0.3.6   <span style="color: #555555;">2021-10-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  tibble             3.1.8   <span style="color: #555555;">2022-07-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  utf8               1.2.2   <span style="color: #555555;">2021-07-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  vctrs              0.4.1   <span style="color: #555555;">2022-04-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  whisker            0.4     <span style="color: #555555;">2019-08-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  withr              2.5.0   <span style="color: #555555;">2022-03-03</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  xfun               0.33    <span style="color: #555555;">2022-09-12</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  yaml               2.3.5   <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [1] /__w/_temp/Library</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [2] /usr/local/lib/R/site-library</span></span></span>
