@@ -1,0 +1,118 @@
+---
+title: "Example analysis document"
+author: 
+- name: "Author name"
+  affiliation: Author affiliation
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: 
+  bookdown::html_document2:
+    figure_caption: yes
+    code_folding: show
+    theme: paper
+    highlight: kate
+    df_print: paged
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+
+```{r setup, include = FALSE}
+
+library(here) # For project-specific paths
+library(ggplot2) # For plotting
+library(tidyverse) # For tidy manipulation of data
+library(stringr) # For string manipulation
+
+knitr::opts_chunk$set(echo = T, warning = F, message = F)
+
+# Set defaults for ggplots 
+theme_rhr <- theme_set(
+  theme_bw(base_family = "Helvetica",
+           base_size = 10) + 
+  theme(panel.grid.major.x = element_blank(),
+        legend.position = "top",
+        axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
+        axis.title.y = element_text(vjust = 0.6),
+        panel.spacing = unit(0.1, "lines"))
+)
+
+```
+
+> Aim: What's the major aim of this .Rmd?
+<br><br>
+
+# Background
+
+What is the background for running this analysis?
+
+# Methods {.tabset}
+
+Describe methods in text, as you would do in a paper.
+
+# Supplementary code {.tabset}
+
+Following section includes any intermediary code used in this `.Rmd`.
+
+## Example supplementary code section
+
+```{r example-supp-code, eval = F}
+
+# Typically supplementary code should be run as a separate script (outside of your .rmd)
+source(here::here("scripts", "01a_example_script.R"))
+
+```
+
+```{bash example-supp-code-nohup, eval = F}
+# Alternatively run as a nohup script if you want a log of the script
+# Have to navigate to root project folder for script to work (as it uses here package)
+cd path_to_project
+
+nohup Rscript \
+/path_to_project/scripts/01a_example_script.R \
+&>/path_to_project/logs/01a_example_script.log&
+
+```
+
+# Results 
+
+## Example results section {.tabset}
+
+### Text
+
+### Figures
+
+For figures, need to make sure your keys don't have a "_" in them and have `fig.cap = "figure caption"` to refer to them in the text (\@ref(fig:iris-figure))
+
+```{r iris-figure, fig.cap = "You need this to refer to figures"}
+
+iris_10 <- data.frame(iris[1:10,]) 
+
+iris_10 %>% 
+    ggplot(aes(x = Sepal.Length,
+               y = Sepal.Width)
+    ) +
+    geom_point()
+
+```
+
+<br><br>
+
+# Conclusions
+What are the conclusions to be drawn from this analysis?
+
+# Next steps
+What are the next steps after this?
+
+# Session info
+
+<details>
+  <summary>Show/hide</summary>
+
+```{r reproducibility, echo = FALSE}
+# Session info
+library("sessioninfo")
+options(width = 120)
+session_info()
+```
+
+</details> 
