@@ -6,10 +6,10 @@ output: github_document
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
+    collapse = TRUE,
+    comment = "#>",
+    fig.path = "man/figures/README-",
+    out.width = "100%"
 )
 ```
 
@@ -67,7 +67,6 @@ through the `DESCRIPTION` file, installing dependencies is as easy as opening th
 
 # install.packages("remotes")
 remotes::install_deps()
-
 ```
 
 ## License
@@ -81,4 +80,3 @@ The code in this repository is released under an MIT license. This repository is
 ## Citation
 <!-- Add any necessary software citations -->
 *TODO: add any necessary software citations.*
-

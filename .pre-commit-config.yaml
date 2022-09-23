@@ -14,7 +14,7 @@ repos:
         exclude: >
           (?x)^(
           inst/rstudio/.*|
-          inst/template/.*|
+          inst/templates/.*|
           tests/testthat/in/.*\.R|
           renv/.*
           )$
@@ -25,13 +25,10 @@ repos:
           tests/testthat/in/.*|
           inst/renv-update\.R|
           inst/rstudio/.*|
-          inst/template/.*|
+          inst/templates/.*|
           renv/activate.R|
           vignettes/FAQ\.Rmd|
           )$
-    -   id: lintr
-        args: [--warn_only]
-        verbose: true
 
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.0.1

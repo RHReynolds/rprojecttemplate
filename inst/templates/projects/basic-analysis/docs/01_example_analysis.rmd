@@ -25,17 +25,20 @@ library(stringr) # For string manipulation
 
 knitr::opts_chunk$set(echo = T, warning = F, message = F)
 
-# Set defaults for ggplots 
+# Set defaults for ggplots
 theme_rhr <- theme_set(
-  theme_bw(base_family = "Helvetica",
-           base_size = 10) + 
-  theme(panel.grid.major.x = element_blank(),
-        legend.position = "top",
-        axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
-        axis.title.y = element_text(vjust = 0.6),
-        panel.spacing = unit(0.1, "lines"))
+    theme_bw(
+        base_family = "Helvetica",
+        base_size = 10
+    ) +
+        theme(
+            panel.grid.major.x = element_blank(),
+            legend.position = "top",
+            axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
+            axis.title.y = element_text(vjust = 0.6),
+            panel.spacing = unit(0.1, "lines")
+        )
 )
-
 ```
 
 > Aim: What's the major aim of this .Rmd?
@@ -59,7 +62,6 @@ Following section includes any intermediary code used in this `.Rmd`.
 
 # Typically supplementary code should be run as a separate script (outside of your .rmd)
 source(here::here("scripts", "01a_example_script.R"))
-
 ```
 
 ```{bash example-supp-code-nohup, eval = F}
@@ -85,14 +87,14 @@ For figures, need to make sure your keys don't have a "_" in them and have `fig.
 
 ```{r iris-figure, fig.cap = "You need this to refer to figures"}
 
-iris_10 <- data.frame(iris[1:10,]) 
+iris_10 <- data.frame(iris[1:10, ])
 
-iris_10 %>% 
-    ggplot(aes(x = Sepal.Length,
-               y = Sepal.Width)
-    ) +
+iris_10 %>%
+    ggplot(aes(
+        x = Sepal.Length,
+        y = Sepal.Width
+    )) +
     geom_point()
-
 ```
 
 <br><br>

@@ -6,15 +6,10 @@
 #' @export
 #'
 
-example_function <- function(message = NULL){
-  if(is.null(message)){
-    
-    print("Hello world")
-    
-  } else{
-    
-    print(c(message))
-    
-  }
-  
+example_function <- function(message = NULL) {
+    if (is.null(message)) {
+        print("Hello world")
+    } else {
+        print(c(message))
+    }
 }

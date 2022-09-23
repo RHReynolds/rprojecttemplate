@@ -7,10 +7,10 @@ library(here)
 # Set arguments -----------------------------------------------------------
 
 args <-
-  list(
-    out_dir = here::here("results", "01_example_results")
-    # List all of the input arguments and paths to your script here
-  )
+    list(
+        out_dir = here::here("results", "01_example_results")
+        # List all of the input arguments and paths to your script here
+    )
 
 # Load data ---------------------------------------------------------------
 
