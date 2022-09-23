@@ -42,7 +42,7 @@ devtools::install_github("RHReynolds/rprojecttemplate")
 
 This `R` package was made for personal use, and aims to create an R project directory primed for data analysis. It has a simple focus on:
 
-1. Creating a standardized project folder structure with a few template files
+1. Creating a standardised project folder structure with a few template files
 needed for beginning a data analysis project
 2. Use of practices that make it easier for the project to be reproducible and open
 
