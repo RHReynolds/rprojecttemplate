@@ -1,0 +1,7 @@
+pandoc: '2.18'
+pkgdown: 2.0.6
+pkgdown_sha: ~
+articles:
+  rprojecttemplate: rprojecttemplate.html
+last_built: 2022-09-23T10:21Z
+
