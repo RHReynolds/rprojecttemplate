@@ -13,6 +13,8 @@ repos:
         args: [--indent_by=4]
         exclude: >
           (?x)^(
+          inst/rstudio/.*|
+          inst/template/.*|
           tests/testthat/in/.*\.R|
           renv/.*
           )$
@@ -22,6 +24,8 @@ repos:
           (?x)^(
           tests/testthat/in/.*|
           inst/renv-update\.R|
+          inst/rstudio/.*|
+          inst/template/.*|
           renv/activate.R|
           vignettes/FAQ\.Rmd|
           )$
