@@ -17,11 +17,18 @@ Suggests:
     BiocStyle,
     covr,
     knitr,
+    gert,
     RefManageR,
-    rmarkdown,
     sessioninfo,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Imports: 
-    magrittr
+    magrittr,
+    fs,
+    rmarkdown,
+    rprojroot,
+    withr,
+    rlang,
+    cli,
+    whisker
