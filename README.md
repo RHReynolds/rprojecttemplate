@@ -17,10 +17,28 @@ The structure makes use of the existing and established packages (devtools, uset
 To access the template on RStudio first install `rprojecttemplate` with:
 
 ``` r
-devtools::install_github("RHReynolds/rprojecttemplate")
+remotes::install_github("RHReynolds/rprojecttemplate")
 ```
 
 # Usage
+
+## Getting started
+
+There are two ways of creating a new project: using the R console or using the RStudio "New Project" menu option.
+
+Through the console, use the `setup_project()` command. For example:
+
+``` r
+library(rprojecttemplate)
+
+rprojecttemplate::setup_project("~/Desktop/test-analysis")
+```
+
+This then creates a directory tree, with template files for starting your analysis. Open the newly created project via the `.Rproj` file.
+
+For the RStudio approach, go to "File -&gt; New Project", then "New directory" and find the `rprojecttemplate` project in the list.
+
+For a more detailed tutorial see the [introduction vignette](https://rhreynolds.github.io/rprojecttemplate/articles/rprojecttemplate.html).
 
 # License
 
@@ -28,4 +46,4 @@ The code in this repository is released under an MIT license. This repository is
 
 # Acknowledgements
 
-This package was inspired by the [`prodigenr`](https://github.com/rostools/prodigenr) package, thus be sure to cite it if you use this `R` package.
+This package was heavily inspired by the [`prodigenr`](https://github.com/rostools/prodigenr) package, thus be sure to cite it if you use this `R` package.
