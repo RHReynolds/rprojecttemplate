@@ -1,22 +1,25 @@
 Package: rprojecttemplate
-Title: R project template
+Title: What the Package Does (One Line, Title Case)
 Version: 0.99.0
+Date: 2022-09-23
 Authors@R: 
-    person(given = "Regina",
-           family = "Reynolds",
-           role = c("aut", "cre"),
-           email = "rhreynolds@hotmail.co.uk")
-Description: Create a project directory structure, along with typical files
-    for that data analysis project. 
+    person("Regina", "Reynolds", , "rhreynolds@hotmail.co.uk", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-6470-7919"))
+Description: Create a project directory structure, along with typical files for that data analysis project.
 License: MIT + file LICENSE
+URL: https://github.com/RHReynolds/rprojecttemplate
+BugReports: https://github.com/RHReynolds/rprojecttemplate/issues
+biocViews: Software
 Encoding: UTF-8
-LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-URL: https://github.com/RHReynolds/rprojecttempalte
-BugReports: https://github.com/RHReynolds/rprojecttempalte/issues
-Imports: 
-    magrittr,
-    ggplot2,
-    ggpubr,
-    here
+Suggests: 
+    BiocStyle,
+    covr,
+    knitr,
+    RefManageR,
+    rmarkdown,
+    sessioninfo,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+VignetteBuilder: knitr

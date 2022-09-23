@@ -4,6 +4,8 @@
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Codecov test
+coverage](https://codecov.io/gh/RHReynolds/rprojecttemplate/branch/main/graph/badge.svg)](https://app.codecov.io/gh/RHReynolds/rprojecttemplate?branch=main)
 <!-- badges: end -->
 
 This \[R\] package was made for personal use, and aims to create an R
