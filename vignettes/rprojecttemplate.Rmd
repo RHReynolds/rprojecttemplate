@@ -78,7 +78,7 @@ rprojecttemplate::setup_project(new_project_path)
 
 This then creates a directory tree, with template files for starting your analysis. Open the newly created project via the `.Rproj` file. 
 
-For the RStudio approach, go to "File -> New Project", then "New directory" and find the `rprojecttemplate` project in the list.
+For the RStudio approach, go to "File -> New Project", then "New directory" and find the `rprojecttemplate` project in the list (it should be listed as "Data analysis project using rprojecttemplate").
 
 The resulting file structure should look something like this:
 

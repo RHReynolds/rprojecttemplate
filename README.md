@@ -30,13 +30,12 @@ Through the console, use the `setup_project()` command. For example:
 
 ``` r
 library(rprojecttemplate)
-
 rprojecttemplate::setup_project("~/Desktop/test-analysis")
 ```
 
 This then creates a directory tree, with template files for starting your analysis. Open the newly created project via the `.Rproj` file.
 
-For the RStudio approach, go to "File -&gt; New Project", then "New directory" and find the `rprojecttemplate` project in the list.
+For the RStudio approach, go to "File -&gt; New Project", then "New directory" and find the `rprojecttemplate` project in the list (it should be listed as "Data analysis project using rprojecttemplate").
 
 For a more detailed tutorial see the [introduction vignette](https://rhreynolds.github.io/rprojecttemplate/articles/rprojecttemplate.html).
 
