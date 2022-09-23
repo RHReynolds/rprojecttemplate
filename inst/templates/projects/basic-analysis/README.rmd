@@ -16,11 +16,13 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-# Background
+# {{ ProjectName }}
+
+## Background
 <!-- Add a description of your project. -->
 *TODO: add a description of your project.*
 
-# Code contents
+## Code contents
 
 *TODO: Modify the following table to suit your repository.*
 *TODO: If you want to be able to view `docs/` interactively, you will need to set up [github pages](https://pages.github.com/) -- this is incredibly easy and fast to do. Remember to change the folder from which the Github Pages site is built to `docs/`.*
@@ -37,7 +39,10 @@ Within this repository you will find:
 | [results](results) | Results from all analyses. |
 | [scripts](scripts) | Contains analysis scripts. Each script contains a one-line description and is also referenced in its corresponding `.Rmd`. |
 
-# Reproducibility
+## Reproducibility
+<!-- Modify selection below depending on how package dependencies have been managed. -->
+
+### `renv`
 <!-- Consider using renv for reproducibility. Delete this section if you will not be doing this. -->
 
 *TODO: consider setting up `renv`, using the following [guide](https://rstudio.github.io/renv/articles/renv.html. Modify text below as appropriate.* 
@@ -49,7 +54,23 @@ This repository uses [`renv`](https://rstudio.github.io/renv/index.html) to crea
 
 For more information on collaborating with `renv`, please refer to this [link](https://rstudio.github.io/renv/articles/collaborating.html).
 
-# License
+### `DESCRIPTION`
+<!-- Consider using renv for reproducibility. Delete this section if you will not be doing this. -->
+
+*TODO: Alternatively, if packages are managed using `usethis::use_package("packagename")` through the `DESCRIPTION` file, modify the text below.* 
+
+If dependencies have been managed by using `usethis::use_package("packagename")`
+through the `DESCRIPTION` file, installing dependencies is as easy as opening the
+`{{ProjectName}}.Rproj` file and running this command in the console:
+
+```{r, eval = F}
+
+# install.packages("remotes")
+remotes::install_deps()
+
+```
+
+## License
 <!-- For analyses, an MIT license can be added to the project using usethis::use_mit_license(). -->
 <!-- If you don't end up using an MIT license, edit below. -->
 
@@ -57,5 +78,7 @@ For more information on collaborating with `renv`, please refer to this [link](h
 
 The code in this repository is released under an MIT license. This repository is distributed in the hope that it will be useful to the wider community, but without any warranty of any kind. Please see the [LICENSE](LICENSE) file for more details. 
 
-# Citation
+## Citation
 <!-- Add any necessary software citations -->
+*TODO: add any necessary software citations.*
+
