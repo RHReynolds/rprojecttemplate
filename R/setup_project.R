@@ -1,3 +1,28 @@
+# Code in this file was taken and modified from the prodigenr package.
+# Below is the license statement from prodigenr
+#
+# # MIT License
+#
+# Copyright (c) 2019 Luke W. Johnston
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 #' Setup a standardized folder and file structure for a research analysis project.
 #'
 #' This starts the project by setting up a common folder and file infrastructure,
@@ -38,8 +63,7 @@ setup_project <-
         update_template("DESCRIPTION", data = list(ProjectName = proj_name))
         update_template("template-Rproj", paste0(proj_name, ".Rproj"))
         fs::file_delete("template-Rproj")
-        update_template("README.md", data = list(ProjectName = proj_name))
-        suppressMessages(create_report())
+        update_template("README.rmd", data = list(ProjectName = proj_name))
       })
   }
 
