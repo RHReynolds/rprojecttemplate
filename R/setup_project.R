@@ -64,7 +64,7 @@ setup_project <-
             )
         }
         proj_template <-
-            rprojecttemplate::find_template(
+            find_template(
                 "projects",
                 "basic-analysis"
             )
@@ -73,16 +73,16 @@ setup_project <-
         withr::with_dir(
             new = proj_path,
             code = {
-                rprojecttemplate::update_template(
+                update_template(
                     "DESCRIPTION",
                     data = list(ProjectName = proj_name)
                 )
-                rprojecttemplate::update_template(
+                update_template(
                     "template-Rproj",
                     paste0(proj_name, ".Rproj")
                 )
                 fs::file_delete("template-Rproj")
-                rprojecttemplate::update_template(
+                update_template(
                     "README.rmd",
                     data = list(ProjectName = proj_name)
                 )

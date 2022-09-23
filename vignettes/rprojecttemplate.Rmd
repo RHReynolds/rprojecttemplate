@@ -73,7 +73,7 @@ Through the console, use the `setup_project()` command.  For example:
 library(rprojecttemplate)
 # Create a temporary folder using the fs package
 new_project_path <- fs::path_temp("example")
-setup_project(new_project_path)
+rprojecttemplate::setup_project(new_project_path)
 ```
 
 This then creates a directory tree, with template files for starting your analysis. Open the newly created project via the `.Rproj` file. 

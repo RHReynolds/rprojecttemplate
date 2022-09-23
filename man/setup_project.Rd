@@ -2,7 +2,8 @@
 % Please edit documentation in R/setup_project.R
 \name{setup_project}
 \alias{setup_project}
-\title{Setup a standardized folder and file structure for a research analysis project.}
+\title{Setup a standardized folder and file structure for a research analysis
+project.}
 \usage{
 setup_project(path)
 }
@@ -10,11 +11,12 @@ setup_project(path)
 \item{path}{A path to a new directory.}
 }
 \value{
-Project setup with folders and files necessary for a standard research project.
+Project setup with folders and files necessary for a standard
+research project.
 }
 \description{
-This starts the project by setting up a common folder and file infrastructure,
-as well as adding some useful files to start the project.
+This starts the project by setting up a common folder and file
+infrastructure,as well as adding some useful files to start the project.
 }
 \examples{
 \dontrun{
