@@ -62,7 +62,7 @@ My typical workflow is:
 2. Start a new project in RStudio via "File -> New Project", then "Version Control --> Git".
 3. Set up my analysis project with `rprojecttemplate::setup_project()`.
 4. Make an initial git commit with analysis template.
-5. Set up [`renv`](https://rstudio.github.io/renv/articles/renv.html)) for reproducibility.
+5. Set up [`renv`](https://rstudio.github.io/renv/articles/renv.html) for reproducibility.
 
 ## Getting started
 
