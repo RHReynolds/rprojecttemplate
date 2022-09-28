@@ -33,9 +33,7 @@ knitr::opts_chunk$set(
 To access the template on RStudio first install `rprojecttemplate` with:
 
 ``` {r, eval = F}
-
 devtools::install_github("RHReynolds/rprojecttemplate")
-
 ```
 
 # Quick start to using to `rprojecttemplate`

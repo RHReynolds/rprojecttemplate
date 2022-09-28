@@ -10,7 +10,7 @@ This `R` package was made for personal use, and aims to create an R project dire
 1.  Creating a standardised project folder structure with a few template files needed for beginning a data analysis project
 2.  Use of practices that make it easier for the project to be reproducible and open
 
-The structure makes use of the existing and established packages (devtools, usethis, and renv) and is intended for use with RStudio.
+The structure makes use of the existing and established packages ([`devtools`](https://devtools.r-lib.org/), [`usethis`](https://usethis.r-lib.org/), and [`renv`](https://rstudio.github.io/renv/articles/renv.html)) and is intended for use with RStudio.
 
 # Installation
 
