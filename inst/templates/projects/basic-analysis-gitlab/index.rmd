@@ -1,0 +1,36 @@
+---
+output: 
+  bookdown::html_document2:
+    figure_caption: yes
+    theme: paper
+    highlight: kate
+    df_print: paged
+    toc: true
+    toc_float: true
+    number_sections: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<!-- Modify link to GitLab. -->
+<!-- badges: start -->
+[![GitLab](https://badgen.net/badge/icon/gitlab?icon=gitlab&label)](#TODO)
+<!-- badges: end -->
+
+# {{ ProjectName }}
+
+### Background
+<!-- Add a description of your project. -->
+*TODO: add a description of your project.*
+
+### Contents
+
+<!-- Replace links with appropriate analysis .htmls below. They will need to be in the same folder as index.md (i.e. the docs/ directory). -->
+
+| No. | Title | Description |
+| --- | ----- | ----------- | 
+| 01 | [Title of analysis 01](docs/01_analysis.html) | Brief description of analysis 01 |
+
+

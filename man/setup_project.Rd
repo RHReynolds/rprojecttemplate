@@ -5,10 +5,13 @@
 \title{Setup a standardized folder and file structure for a research analysis
 project.}
 \usage{
-setup_project(path)
+setup_project(path, type = c("github", "gitlab"))
 }
 \arguments{
 \item{path}{A path to a new directory.}
+
+\item{type}{chr. Vector specifying whether this project will be hosted on
+github or gitlab. Default is github.}
 }
 \value{
 Project setup with folders and files necessary for a standard
