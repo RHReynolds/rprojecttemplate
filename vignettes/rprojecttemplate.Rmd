@@ -38,7 +38,7 @@ devtools::install_github("RHReynolds/rprojecttemplate")
 
 # Quick start to using to `rprojecttemplate`
 
-This `R` package was made for personal use, and aims to create an R project directory primed for data analysis. It has a simple focus on:
+This `R` package was made for personal use, and aims to create an R project directory primed for data analysis that can be hosted either on GitHub or GitLab. It has a simple focus on:
 
 1. Creating a standardised project folder structure with a few template files
 needed for beginning a data analysis project
@@ -50,13 +50,13 @@ The structure makes use of the existing and established packages ([`devtools`](h
 
 ## My typical workflow
 
-Personally, I believe all data analyses should be hosted on Github -- both for reproducibility, but also for your own version control. 
+Personally, I believe all data analyses should be hosted on Github/GitLab -- both for reproducibility, but also for your own version control. 
 
 Pre-publication, these can be hosted as private repositories and made public on release of a paper. Just remember to think about whether your repository contains any sensitive information (e.g. patient-identifiable information or IP addresses for private servers).
 
 My typical workflow is:
 
-1. Create a Github repository on the Github website, as detailed in this [guide](https://docs.github.com/en/get-started/quickstart/create-a-repo).
+1. Create a GitHub/GitLab repository on the GitHub/GitLab website, as detailed in this [GitHub guide](https://docs.github.com/en/get-started/quickstart/create-a-repo) or [GitLab guide](https://docs.gitlab.com/ee/user/project/working_with_projects.html#create-a-project).
 2. Start a new project in RStudio via "File -> New Project", then "Version Control --> Git".
 3. Set up my analysis project with `rprojecttemplate::setup_project()`.
 4. Make an initial git commit with analysis template.
@@ -64,16 +64,20 @@ My typical workflow is:
 
 ## Getting started
 
+### GitHub-hosted project
+
 There are two ways of creating a new project: using the R console or using the RStudio "New Project" menu option.
 
-Through the console, use the `setup_project()` command.  For example:
+Through the console, use the `setup_project()` command. For example:
 
 ```{r manuscript-proj}
 library(rprojecttemplate)
 # Create a temporary folder using the fs package
 new_project_path <- fs::path_temp("example")
-rprojecttemplate::setup_project(new_project_path)
+rprojecttemplate::setup_project(new_project_path, type = "github")
 ```
+
+Please note that if no `type` is provided to `setup_project()` the assumption is that the project will be hosted on GitHub, and a template created accordingly.
 
 This then creates a directory tree, with template files for starting your analysis. Open the newly created project via the `.Rproj` file. 
 
@@ -91,16 +95,43 @@ rprojecttemplate:::viz_project_tree(new_project_path)
 documentation of your functions.
 - `.Rproj`: Is a standard file used by RStudio to set some R Project specific settings.
 - `R/`: Should contain the functions called in `docs/` and `scripts/`.
-- `docs/`: Should contain all `.Rmd`s and their corresponding `.html`s describing analyses performed for this project. An example `.rmd` is included along with a table of contents (`index.md`), which describes the purpose of each analysis and can be used as a landing page if you choose to host your `docs/` on [github pages](https://pages.github.com/).
+- `docs/`: Should contain all `.Rmd`s and their corresponding `.html`s describing analyses performed for this project. An example `.rmd` is included along with a table of contents (`index.md`), which describes the purpose of each analysis and can be used as a landing page if you choose to host your `docs/` on [GitHub pages](https://pages.github.com/).
 - `raw_data/`: Folder should either:
     - Contain the raw, unprocessed data used specifically for each analysis. 
-    - In those situations where raw data files are too large to be loaded to github, consider:
+    - In those situations where raw data files are too large to be loaded to GitHub, consider:
         - Uploading those files to a repository like zenodo or figshare (assuming they are do not contain patient-sensitive information).
         - If the files are publicly available, include either a script with commands to download these files can be a text file describing where and how to download these files.
 - `results/`: Results generated from any analyses/scripts that are part of the project should be stored here as data files.
 - `scripts/`: Contains analysis scripts. Each script should contain a one-line description and should be named such that it corresponds to an `.Rmd` in `docs/`. Consider using numbering and lettering to denote the sequence in which scripts should be run.
 
 The template I use for my analysis `.rmd`s can be installed using my [`rmdplate` package](https://github.com/RHReynolds/rmdplate). Alternatively, consider making your own template.
+
+### GitLab-hosted project
+
+As with a GitHub-hosted project, there are two ways of creating a new project: using the R console or using the RStudio "New Project" menu option.
+
+Through the console, use the `setup_project()` command, but specify `type = "gitlab"`. For example:
+
+```{r manuscript-proj-gitlab}
+# Create a temporary folder using the fs package
+new_project_path <- fs::path_temp("example-gitlab")
+rprojecttemplate::setup_project(new_project_path, type = "gitlab")
+```
+
+This then creates a directory tree, with template files for starting your analysis. Open the newly created project via the `.Rproj` file. 
+
+For the RStudio approach, go to "File -> New Project", then "New directory" and find the `rprojecttemplate` project in the list (it should be listed as "Data analysis project for gitlab using rprojecttemplate").
+
+The resulting file structure should look something like this:
+
+```{r folder-tree-gitlab, echo=FALSE, comment="", results="markup"}
+rprojecttemplate:::viz_project_tree(new_project_path)
+```
+
+The main differences between this GitLab-friendly template and the GitHub-friendly template are:
+
+- `.gitlab-ci.yml` - basic template for CI that is required to add a Pages site
+- `index.rmd` - the landing page for GitLab pages needs to within the main repository (as opposed to `docs/`). Remember to knit this page everytime an edit is made, using `devtools::build_rmd("index.rmd")`.
 
 # Acknowledgements
 This package was heavily inspired by the [`prodigenr`](https://github.com/rostools/prodigenr) package, thus be sure to cite it if you use this `R` package.

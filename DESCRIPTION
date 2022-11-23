@@ -1,6 +1,6 @@
 Package: rprojecttemplate
 Title: Create an R Project directory structure for data analysis 
-Version: 0.99.0
+Version: 0.99.1
 Date: 2022-09-23
 Authors@R: 
     person("Regina", "Reynolds", , "rhreynolds@hotmail.co.uk", role = c("aut", "cre"),
