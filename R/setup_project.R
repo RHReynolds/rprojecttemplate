@@ -30,6 +30,8 @@
 #' infrastructure,as well as adding some useful files to start the project.
 #'
 #' @param path A path to a new directory.
+#' @param type chr. Vector specifying whether this project will be hosted on
+#'   github or gitlab. Default is github.
 #'
 #' @return Project setup with folders and files necessary for a standard
 #'   research project.
@@ -42,10 +44,21 @@
 #' setup_project(new_proj_name)
 #' }
 setup_project <-
-    function(path) {
+    function(
+      path,
+      type = c("github", "gitlab")
+      ) {
         stopifnot(is.character(path))
         proj_path <- fs::path_abs(path)
         proj_name <- fs::path_file(proj_path)
+        
+        if(length(type) > 1){
+          rlang::warn(
+            "More than one project type provided. User must choose between github/gitlab-friendly format. Will use github-friendly template."
+          )
+          type <- "github"
+          
+        }
 
         if (grepl(" ", basename(proj_path))) {
             rlang::warn(
@@ -63,31 +76,69 @@ setup_project <-
                 )
             )
         }
-        proj_template <-
+        
+        if(type == "github"){
+          
+          proj_template <-
             find_template(
-                "projects",
-                "basic-analysis"
+              "projects",
+              "basic-analysis"
             )
-        fs::dir_copy(proj_template, new_path = proj_path)
-
-        withr::with_dir(
+          fs::dir_copy(proj_template, new_path = proj_path)
+          
+          withr::with_dir(
             new = proj_path,
             code = {
-                update_template(
-                    "DESCRIPTION",
-                    data = list(ProjectName = proj_name)
-                )
-                update_template(
-                    "template-Rproj",
-                    paste0(proj_name, ".Rproj")
-                )
-                fs::file_delete("template-Rproj")
-                update_template(
-                    "README.rmd",
-                    data = list(ProjectName = proj_name)
-                )
+              update_template(
+                "DESCRIPTION",
+                data = list(ProjectName = proj_name)
+              )
+              update_template(
+                "template-Rproj",
+                paste0(proj_name, ".Rproj")
+              )
+              fs::file_delete("template-Rproj")
+              update_template(
+                "README.rmd",
+                data = list(ProjectName = proj_name)
+              )
             }
-        )
+          )
+          
+        } else if (type == "gitlab"){
+          
+          proj_template <-
+            find_template(
+              "projects",
+              "basic-analysis-gitlab"
+            )
+          fs::dir_copy(proj_template, new_path = proj_path)
+          
+          withr::with_dir(
+            new = proj_path,
+            code = {
+              update_template(
+                "DESCRIPTION",
+                data = list(ProjectName = proj_name)
+              )
+              update_template(
+                "template-Rproj",
+                paste0(proj_name, ".Rproj")
+              )
+              fs::file_delete("template-Rproj")
+              update_template(
+                "README.rmd",
+                data = list(ProjectName = proj_name)
+              )
+              update_template(
+                "index.rmd",
+                data = list(ProjectName = proj_name)
+              )
+            }
+          )
+          
+        }
+        
     }
 
 # Utilities -----------------------------------------------------
