@@ -20,7 +20,7 @@ infrastructure,as well as adding some useful files to start the project."><!-- m
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rprojecttemplate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.1</span>
       </span>
     </div>
 
@@ -61,13 +61,18 @@ infrastructure,as well as adding some useful files to start the project.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">setup_project</span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">setup_project</span><span class="op">(</span><span class="va">path</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"github"</span>, <span class="st">"gitlab"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>path</dt>
 <dd><p>A path to a new directory.</p></dd>
+
+
+<dt>type</dt>
+<dd><p>chr. Vector specifying whether this project will be hosted on
+github or gitlab. Default is github.</p></dd>
 
 </dl></div>
     <div id="value">
