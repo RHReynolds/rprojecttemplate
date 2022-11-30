@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 ## Code contents
 
 *TODO: Modify the following table to suit your repository.*
-*TODO: If you want to be able to view `docs/` interactively, you will need to set up [github pages](https://pages.github.com/) -- this is incredibly easy and fast to do. Remember to change the folder from which the Github Pages site is built to `docs/`.*
+*TODO: If you want to be able to view `docs/` interactively, you will need to set up [GitLab pages](https://docs.gitlab.com/ee/user/project/pages/). The easiest way to get started is to [create a pages website using a CI/CD template](https://docs.gitlab.com/ee/user/project/pages/getting_started/pages_ci_cd_template.html) -- use the HTML .gitlab-ci.yml template. Remember to change the folder from which the GitLab Pages site is built to `docs/`.*
 
 Within this repository you will find:
 
