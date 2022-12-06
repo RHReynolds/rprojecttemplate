@@ -2,7 +2,6 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
-s
 [![GitLab](https://badgen.net/badge/icon/gitlab-pages?icon=gitlab&label)](#TODO)
 <!-- badges: end -->
 

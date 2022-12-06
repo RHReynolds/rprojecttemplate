@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-<!-- badges: start -->s
+<!-- badges: start -->
 [![GitLab](https://badgen.net/badge/icon/gitlab-pages?icon=gitlab&label)](#TODO)
 <!-- badges: end -->
 
