@@ -7,7 +7,8 @@
 update_index(
   html_folder = "docs",
   include_number = TRUE,
-  include_description = TRUE
+  include_description = TRUE,
+  md_formatting = TRUE
 )
 }
 \arguments{
@@ -27,15 +28,21 @@ assumes that that this description is described in the section preceded by
 "> Aim:" and ended with "<br><br>", as in the example analysis templates
 available in both templates. Both of these templates were generated using:
 https://github.com/RHReynolds/rmdplate. Default is TRUE.}
+
+\item{md_formatting}{boolean. Whether \code{\link[tibble:tbl_df-class]{tibble}} should be returned with md formatting. Default is TRUE.}
 }
 \value{
-a \code{\link[tibble:tbl_df-class]{tibble}}, but in md formatting.
+A \code{\link[tibble:tbl_df-class]{tibble}}, containing the title of each
+analysis, as extracted from the \code{.rmd} in the user-specified folder, with a
+link to the corresponding \code{.html}. It will optionally also contain the
+number of the analysis and a description. By default, it will be returned
+with md formatting, but this can be set to FALSE.
 }
 \description{
 \code{update_index} will generate a \code{\link[tibble:tbl_df-class]{tibble}}
-object and display it with md formatting. It will contain the title of the
-analysis, as extracted from the \code{.rmd} with a link to the corresponding
-\code{.html}. If chosen, it will also show the number of the analysis and a
-description of the analysis, as extracted from the file name and \code{.rmd},
-respectively.
+object and, if selected, display it with md formatting. It will contain the
+title of the analysis, as extracted from the \code{.rmd} with a link to the
+corresponding \code{.html}. If chosen, it will also show the number of the
+analysis and a description of the analysis, as extracted from the file name
+and \code{.rmd}, respectively.
 }
