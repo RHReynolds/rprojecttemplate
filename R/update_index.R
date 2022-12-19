@@ -20,13 +20,18 @@
 #'   assumes that that this description is described in the section preceded by
 #'   "> Aim:" and ended with "<br><br>", as in the example analysis templates
 #'   available in both templates. Both of these templates were generated using:
-#'   https://github.com/RHReynolds/rmdplate.
-#'   Default is TRUE.
+#'   https://github.com/RHReynolds/rmdplate. Default is TRUE.
 #'
 #' @return a [`tibble`][tibble::tbl_df-class], but in md formatting.
 #' @importFrom knitr kable
 #' @export
 #'
+#' @example
+#'
+#' update_index(html_folder =
+#' "inst/templates/projects/basic-analysis-gitlab/docs/")
+#'
+#' 
 
 update_index <- function(
     html_folder = "docs", 

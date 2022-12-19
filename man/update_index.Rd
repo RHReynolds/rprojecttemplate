@@ -26,8 +26,7 @@ analysis, which will be taken straight from the \code{.rmd}. This function
 assumes that that this description is described in the section preceded by
 "> Aim:" and ended with "<br><br>", as in the example analysis templates
 available in both templates. Both of these templates were generated using:
-https://github.com/RHReynolds/rmdplate.
-Default is TRUE.}
+https://github.com/RHReynolds/rmdplate. Default is TRUE.}
 }
 \value{
 a \code{\link[tibble:tbl_df-class]{tibble}}, but in md formatting.
