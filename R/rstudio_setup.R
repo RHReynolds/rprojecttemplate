@@ -25,6 +25,6 @@
 
 rstudio_setup <- function(path, ...) {
     # create project
-    rprojecttemplate::setup_project(path = path)
+    rprojecttemplate::setup_project(path = path, type = "github")
     invisible(NULL)
 }
