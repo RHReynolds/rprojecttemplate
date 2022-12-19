@@ -1,11 +1,11 @@
 #' Update index table
 #'
 #' @description `update_index` will generate a [`tibble`][tibble::tbl_df-class]
-#'   object and display it with md formatting. It will contain the title of the
-#'   analysis, as extracted from the `.rmd` with a link to the corresponding
-#'   `.html`. If chosen, it will also show the number of the analysis and a
-#'   description of the analysis, as extracted from the file name and `.rmd`,
-#'   respectively.
+#'   object and, if selected, display it with md formatting. It will contain the
+#'   title of the analysis, as extracted from the `.rmd` with a link to the
+#'   corresponding `.html`. If chosen, it will also show the number of the
+#'   analysis and a description of the analysis, as extracted from the file name
+#'   and `.rmd`, respectively.
 #'
 #' @param html_folder Character. The folder containing `.html`s to be referenced
 #'   in the contents table. This path should be relative to the root folder of
@@ -21,22 +21,23 @@
 #'   "> Aim:" and ended with "<br><br>", as in the example analysis templates
 #'   available in both templates. Both of these templates were generated using:
 #'   https://github.com/RHReynolds/rmdplate. Default is TRUE.
+#' @param md_formatting boolean. Whether [`tibble`][tibble::tbl_df-class] should be returned with md formatting. Default is TRUE.
 #'
-#' @return a [`tibble`][tibble::tbl_df-class], but in md formatting.
+#' @return A [`tibble`][tibble::tbl_df-class], containing the title of each
+#'   analysis, as extracted from the `.rmd` in the user-specified folder, with a
+#'   link to the corresponding `.html`. It will optionally also contain the
+#'   number of the analysis and a description. By default, it will be returned
+#'   with md formatting, but this can be set to FALSE.
 #' @importFrom knitr kable
 #' @export
-#'
-#' @example
-#'
-#' update_index(html_folder =
-#' "inst/templates/projects/basic-analysis-gitlab/docs/")
 #'
 #' 
 
 update_index <- function(
     html_folder = "docs", 
     include_number = TRUE, 
-    include_description = TRUE
+    include_description = TRUE,
+    md_formatting = TRUE
     ) {
   
   # html_folder = "inst/templates/projects/basic-analysis-gitlab/docs/"
@@ -45,8 +46,15 @@ update_index <- function(
       html_folder, 
       include_number = include_number, 
       include_description = include_description
-      ) %>% 
-    knitr::kable()
+      ) 
+  
+  if(md_formatting){
+    
+    contents_df <- 
+      contents_df %>% 
+      knitr::kable()
+    
+  }
   
   return(contents_df)
   
