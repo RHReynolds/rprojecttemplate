@@ -1,0 +1,13 @@
+globalVariables(
+  c(
+    "Description",
+    "file_ext",
+    "file_name",
+    "file_paths",
+    "html",
+    "No",
+    "Title",
+    "rmd",
+    "."
+  )
+)
