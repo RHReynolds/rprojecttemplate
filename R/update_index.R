@@ -21,7 +21,8 @@
 #'   "> Aim:" and ended with "<br><br>", as in the example analysis templates
 #'   available in both templates. Both of these templates were generated using:
 #'   https://github.com/RHReynolds/rmdplate. Default is TRUE.
-#' @param md_formatting boolean. Whether [`tibble`][tibble::tbl_df-class] should be returned with md formatting. Default is TRUE.
+#' @param md_formatting boolean. Whether [`tibble`][tibble::tbl_df-class] should
+#'   be returned with md formatting. Default is TRUE.
 #'
 #' @return A [`tibble`][tibble::tbl_df-class], containing the title of each
 #'   analysis, as extracted from the `.rmd` in the user-specified folder, with a
@@ -31,7 +32,6 @@
 #' @importFrom knitr kable
 #' @export
 #'
-#' 
 
 update_index <- function(
     html_folder = "docs", 
@@ -124,6 +124,21 @@ update_index <- function(
   
   contents_df <- .extract_title(file_df)
   
+  if(include_description){
+    
+    contents_df <- 
+      contents_df %>% 
+      dplyr::inner_join(
+        .extract_description(file_df),
+        by = c("file_name", "html", "rmd")
+      ) %>% 
+      dplyr::select(
+        Title, Description, everything()
+      ) %>% 
+      dplyr::arrange(Title)
+    
+  }
+  
   if(include_number){
     
     contents_df <- 
@@ -138,22 +153,11 @@ update_index <- function(
       ) %>% 
       dplyr::select(
         No, everything()
+      ) %>% 
+      dplyr::arrange(
+        No
       )
     
-  }
-  
-  if(include_description){
-    
-    contents_df <- 
-      contents_df %>% 
-      dplyr::inner_join(
-        .extract_description(file_df),
-        by = c("file_name", "html", "rmd")
-        ) %>% 
-      dplyr::select(
-        No, Title, Description, everything()
-      )
-      
   }
   
   contents_df <- 
