@@ -32,6 +32,8 @@
 #' @param path A path to a new directory.
 #' @param type chr. Vector specifying whether this project will be hosted on
 #'   github or gitlab. Default is github.
+#' @param gitignore_template chr. A character vector using values included in
+#'   \code{\link[gitignore:gi_available_templates.]{name}}. Default is "r".
 #'
 #' @return Project setup with folders and files necessary for a standard
 #'   research project.
@@ -46,7 +48,8 @@
 setup_project <-
     function(
       path,
-      type = c("github", "gitlab")
+      type = c("github", "gitlab"),
+      gitignore_template = "r"
       ) {
         stopifnot(is.character(path))
         proj_path <- fs::path_abs(path)
@@ -76,6 +79,12 @@ setup_project <-
                 )
             )
         }
+        
+        cli::cli_alert_info(
+          c(
+            "The {.val {proj_path}} folder is being created."
+          )
+        )
         
         if(type == "github"){
           
@@ -138,6 +147,12 @@ setup_project <-
           )
           
         }
+        
+        # create R-based gitignore file
+        gitignore::gi_write_gitignore(
+          gitignore::gi_fetch_templates(gitignore_template), 
+          gitignore_file = file.path(proj_path, ".gitignore")
+          )
         
     }
 

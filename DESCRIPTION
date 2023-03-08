@@ -37,4 +37,5 @@ Imports:
     tibble,
     tidyr,
     readr,
-    knitr
+    knitr,
+    gitignore
