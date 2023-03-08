@@ -5,13 +5,24 @@
 \title{Setup a standardized folder and file structure for a research analysis
 project.}
 \usage{
-setup_project(path, type = c("github", "gitlab"))
+setup_project(
+  path,
+  type = c("github", "gitlab"),
+  add_gitignore = TRUE,
+  gitignore_template = "r"
+)
 }
 \arguments{
 \item{path}{A path to a new directory.}
 
 \item{type}{chr. Vector specifying whether this project will be hosted on
 github or gitlab. Default is github.}
+
+\item{add_gitignore}{logical. Specify whether gitignore should be added.
+Default is TRUE.}
+
+\item{gitignore_template}{chr. A character vector using values included in
+\code{\link[gitignore]{gi_available_templates}}. Default is "r".}
 }
 \value{
 Project setup with folders and files necessary for a standard

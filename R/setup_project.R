@@ -32,8 +32,10 @@
 #' @param path A path to a new directory.
 #' @param type chr. Vector specifying whether this project will be hosted on
 #'   github or gitlab. Default is github.
+#' @param add_gitignore logical. Specify whether gitignore should be added.
+#'   Default is TRUE.
 #' @param gitignore_template chr. A character vector using values included in
-#'   \code{\link[gitignore:gi_available_templates.]{name}}. Default is "r".
+#'   \code{\link[gitignore]{gi_available_templates}}. Default is "r".
 #'
 #' @return Project setup with folders and files necessary for a standard
 #'   research project.
@@ -49,6 +51,7 @@ setup_project <-
     function(
       path,
       type = c("github", "gitlab"),
+      add_gitignore = TRUE,
       gitignore_template = "r"
       ) {
         stopifnot(is.character(path))
@@ -57,7 +60,11 @@ setup_project <-
         
         if(length(type) > 1){
           rlang::warn(
-            "More than one project type provided. User must choose between github/gitlab-friendly format. Will use github-friendly template."
+            c(
+              "More than one project type provided.", 
+              " User must choose between github/gitlab-friendly format.", 
+              " Default github-friendly template used." 
+            )
           )
           type <- "github"
           
@@ -79,12 +86,6 @@ setup_project <-
                 )
             )
         }
-        
-        cli::cli_alert_info(
-          c(
-            "The {.val {proj_path}} folder is being created."
-          )
-        )
         
         if(type == "github"){
           
@@ -148,11 +149,33 @@ setup_project <-
           
         }
         
-        # create R-based gitignore file
-        gitignore::gi_write_gitignore(
-          gitignore::gi_fetch_templates(gitignore_template), 
-          gitignore_file = file.path(proj_path, ".gitignore")
+        cli::cli_alert_success(
+          c(
+            "The {.val {proj_path}} folder has been created."
           )
+        )
+        
+        
+        if(add_gitignore == TRUE){
+          # fetch gitignore template
+          cli::cli_alert_info(
+            c(
+              "Fetching the specified gitignore template."
+            )
+          )
+          gi_template <- gitignore::gi_fetch_templates(gitignore_template, copy_to_clipboard = TRUE)
+          
+          # write gitignore
+          xfun::write_utf8(
+            gi_template, 
+            file.path(proj_path, ".gitignore")
+            )
+          cli::cli_alert_success(
+            c(
+              "The {.val {file.path(proj_path, '.gitignore')}} has been created."
+            )
+          )
+        }
         
     }
 
