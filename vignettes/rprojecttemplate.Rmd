@@ -74,7 +74,7 @@ Through the console, use the `setup_project()` command. For example:
 library(rprojecttemplate)
 # Create a temporary folder using the fs package
 new_project_path <- fs::path_temp("example")
-rprojecttemplate::setup_project(new_project_path, type = "github")
+rprojecttemplate::setup_project(new_project_path, type = "github", add_gitignore = TRUE)
 ```
 
 Please note that if no `type` is provided to `setup_project()` the assumption is that the project will be hosted on GitHub, and a template created accordingly.
@@ -130,8 +130,7 @@ rprojecttemplate:::viz_project_tree(new_project_path)
 
 The main differences between this GitLab-friendly template and the GitHub-friendly template are:
 
-- `.gitlab-ci.yml` - basic template for CI that is required to add a Pages site
-- `index.rmd` - the landing page for GitLab pages needs to within the main repository (as opposed to `docs/`). Remember to knit this page everytime an edit is made, using `devtools::build_rmd("index.rmd")`.
+- `index.rmd` - the landing page for GitLab pages needs to within the main repository (as opposed to `docs/`). Remember to knit this page every time an edit is made, using `devtools::build_rmd("index.rmd")`.
 
 # Acknowledgements
 This package was heavily inspired by the [`prodigenr`](https://github.com/rostools/prodigenr) package, thus be sure to cite it if you use this `R` package.
