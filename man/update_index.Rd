@@ -25,11 +25,12 @@ will be ordered alphabetically. Default is TRUE.}
 \item{include_description}{boolean. Whether to include a description of the
 analysis, which will be taken straight from the \code{.rmd}. This function
 assumes that that this description is described in the section preceded by
-"> Aim:" and ended with "<br><br>", as in the example analysis templates
+"> Aim:" and ended with "\if{html}{\out{<br>}}\if{html}{\out{<br>}}", as in the example analysis templates
 available in both templates. Both of these templates were generated using:
 https://github.com/RHReynolds/rmdplate. Default is TRUE.}
 
-\item{md_formatting}{boolean. Whether \code{\link[tibble:tbl_df-class]{tibble}} should be returned with md formatting. Default is TRUE.}
+\item{md_formatting}{boolean. Whether \code{\link[tibble:tbl_df-class]{tibble}} should
+be returned with md formatting. Default is TRUE.}
 }
 \value{
 A \code{\link[tibble:tbl_df-class]{tibble}}, containing the title of each
