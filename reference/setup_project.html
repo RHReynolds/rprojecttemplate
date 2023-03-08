@@ -61,7 +61,12 @@ infrastructure,as well as adding some useful files to start the project.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">setup_project</span><span class="op">(</span><span class="va">path</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"github"</span>, <span class="st">"gitlab"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">setup_project</span><span class="op">(</span></span>
+<span>  <span class="va">path</span>,</span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"github"</span>, <span class="st">"gitlab"</span><span class="op">)</span>,</span>
+<span>  add_gitignore <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  gitignore_template <span class="op">=</span> <span class="st">"r"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -73,6 +78,16 @@ infrastructure,as well as adding some useful files to start the project.</p>
 <dt>type</dt>
 <dd><p>chr. Vector specifying whether this project will be hosted on
 github or gitlab. Default is github.</p></dd>
+
+
+<dt>add_gitignore</dt>
+<dd><p>logical. Specify whether gitignore should be added.
+Default is TRUE.</p></dd>
+
+
+<dt>gitignore_template</dt>
+<dd><p>chr. A character vector using values included in
+<code><a href="https://docs.ropensci.org/gitignore/reference/gi_available_templates.html" class="external-link">gi_available_templates</a></code>. Default is "r".</p></dd>
 
 </dl></div>
     <div id="value">

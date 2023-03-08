@@ -76,7 +76,7 @@ Reynolds</h4>
       UCL<br><a class="author_email" href="mailto:#"></a><a href="mailto:regina.reynolds.16@ucl.ac.uk" class="email">regina.reynolds.16@ucl.ac.uk</a>
       </address>
                   
-            <h4 data-toc-skip class="date">15 February 2023</h4>
+            <h4 data-toc-skip class="date">8 March 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/RHReynolds/rprojecttemplate/blob/HEAD/vignettes/rprojecttemplate.Rmd" class="external-link"><code>vignettes/rprojecttemplate.Rmd</code></a></small>
       <div class="hidden name"><code>rprojecttemplate.Rmd</code></div>
@@ -150,7 +150,69 @@ For example:</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RHReynolds/rprojecttemplate" class="external-link">rprojecttemplate</a></span><span class="op">)</span></span>
 <span><span class="co"># Create a temporary folder using the fs package</span></span>
 <span><span class="va">new_project_path</span> <span class="op">&lt;-</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/file_temp.html" class="external-link">path_temp</a></span><span class="op">(</span><span class="st">"example"</span><span class="op">)</span></span>
-<span><span class="fu">rprojecttemplate</span><span class="fu">::</span><span class="fu"><a href="../reference/setup_project.html">setup_project</a></span><span class="op">(</span><span class="va">new_project_path</span>, type <span class="op">=</span> <span class="st">"github"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">rprojecttemplate</span><span class="fu">::</span><span class="fu"><a href="../reference/setup_project.html">setup_project</a></span><span class="op">(</span><span class="va">new_project_path</span>, type <span class="op">=</span> <span class="st">"github"</span>, add_gitignore <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> The <span style="color: #0000BB;">"/tmp/RtmpZFIP9g/example"</span> folder has been created.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Fetching the specified gitignore template.</span></span>
+<span><span class="co">#&gt; # Created by https://www.toptal.com/developers/gitignore/api/r</span></span>
+<span><span class="co">#&gt; # Edit at https://www.toptal.com/developers/gitignore?templates=r</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ### R ###</span></span>
+<span><span class="co">#&gt; # History files</span></span>
+<span><span class="co">#&gt; .Rhistory</span></span>
+<span><span class="co">#&gt; .Rapp.history</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # Session Data files</span></span>
+<span><span class="co">#&gt; .RData</span></span>
+<span><span class="co">#&gt; .RDataTmp</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # User-specific files</span></span>
+<span><span class="co">#&gt; .Ruserdata</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # Example code in package build process</span></span>
+<span><span class="co">#&gt; *-Ex.R</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # Output files from R CMD build</span></span>
+<span><span class="co">#&gt; /*.tar.gz</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # Output files from R CMD check</span></span>
+<span><span class="co">#&gt; /*.Rcheck/</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # RStudio files</span></span>
+<span><span class="co">#&gt; .Rproj.user/</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # produced vignettes</span></span>
+<span><span class="co">#&gt; vignettes/*.html</span></span>
+<span><span class="co">#&gt; vignettes/*.pdf</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3</span></span>
+<span><span class="co">#&gt; .httr-oauth</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # knitr and R markdown default cache directories</span></span>
+<span><span class="co">#&gt; *_cache/</span></span>
+<span><span class="co">#&gt; /cache/</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # Temporary files created by R markdown</span></span>
+<span><span class="co">#&gt; *.utf8.md</span></span>
+<span><span class="co">#&gt; *.knit.md</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # R Environment Variables</span></span>
+<span><span class="co">#&gt; .Renviron</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # pkgdown site</span></span>
+<span><span class="co">#&gt; docs/</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # translation temp files</span></span>
+<span><span class="co">#&gt; po/*~</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # RStudio Connect folder</span></span>
+<span><span class="co">#&gt; rsconnect/</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ### R.Bookdown Stack ###</span></span>
+<span><span class="co">#&gt; # R package: bookdown caching files</span></span>
+<span><span class="co">#&gt; /*_files/</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # End of https://www.toptal.com/developers/gitignore/api/r</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> The <span style="color: #0000BB;">"/tmp/RtmpZFIP9g/example/.gitignore"</span> has been created.</span></span></code></pre></div>
 <p>Please note that if no <code>type</code> is provided to
 <code><a href="../reference/setup_project.html">setup_project()</a></code> the assumption is that the project will be
 hosted on GitHub, and a template created accordingly.</p>
@@ -163,6 +225,7 @@ list (it should be listed as “Data analysis project using
 rprojecttemplate”).</p>
 <p>The resulting file structure should look something like this:</p>
 <pre><code> [01;34mexample [0m
+├── .gitignore
 ├── DESCRIPTION
 ├──  [01;34mR [0m
 │   ├── README.md
@@ -251,7 +314,69 @@ but specify <code>type = "gitlab"</code>. For example:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a temporary folder using the fs package</span></span>
 <span><span class="va">new_project_path</span> <span class="op">&lt;-</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/file_temp.html" class="external-link">path_temp</a></span><span class="op">(</span><span class="st">"example-gitlab"</span><span class="op">)</span></span>
-<span><span class="fu">rprojecttemplate</span><span class="fu">::</span><span class="fu"><a href="../reference/setup_project.html">setup_project</a></span><span class="op">(</span><span class="va">new_project_path</span>, type <span class="op">=</span> <span class="st">"gitlab"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">rprojecttemplate</span><span class="fu">::</span><span class="fu"><a href="../reference/setup_project.html">setup_project</a></span><span class="op">(</span><span class="va">new_project_path</span>, type <span class="op">=</span> <span class="st">"gitlab"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> The <span style="color: #0000BB;">"/tmp/RtmpZFIP9g/example-gitlab"</span> folder has been created.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Fetching the specified gitignore template.</span></span>
+<span><span class="co">#&gt; # Created by https://www.toptal.com/developers/gitignore/api/r</span></span>
+<span><span class="co">#&gt; # Edit at https://www.toptal.com/developers/gitignore?templates=r</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ### R ###</span></span>
+<span><span class="co">#&gt; # History files</span></span>
+<span><span class="co">#&gt; .Rhistory</span></span>
+<span><span class="co">#&gt; .Rapp.history</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # Session Data files</span></span>
+<span><span class="co">#&gt; .RData</span></span>
+<span><span class="co">#&gt; .RDataTmp</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # User-specific files</span></span>
+<span><span class="co">#&gt; .Ruserdata</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # Example code in package build process</span></span>
+<span><span class="co">#&gt; *-Ex.R</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # Output files from R CMD build</span></span>
+<span><span class="co">#&gt; /*.tar.gz</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # Output files from R CMD check</span></span>
+<span><span class="co">#&gt; /*.Rcheck/</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # RStudio files</span></span>
+<span><span class="co">#&gt; .Rproj.user/</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # produced vignettes</span></span>
+<span><span class="co">#&gt; vignettes/*.html</span></span>
+<span><span class="co">#&gt; vignettes/*.pdf</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3</span></span>
+<span><span class="co">#&gt; .httr-oauth</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # knitr and R markdown default cache directories</span></span>
+<span><span class="co">#&gt; *_cache/</span></span>
+<span><span class="co">#&gt; /cache/</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # Temporary files created by R markdown</span></span>
+<span><span class="co">#&gt; *.utf8.md</span></span>
+<span><span class="co">#&gt; *.knit.md</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # R Environment Variables</span></span>
+<span><span class="co">#&gt; .Renviron</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # pkgdown site</span></span>
+<span><span class="co">#&gt; docs/</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # translation temp files</span></span>
+<span><span class="co">#&gt; po/*~</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # RStudio Connect folder</span></span>
+<span><span class="co">#&gt; rsconnect/</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ### R.Bookdown Stack ###</span></span>
+<span><span class="co">#&gt; # R package: bookdown caching files</span></span>
+<span><span class="co">#&gt; /*_files/</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; # End of https://www.toptal.com/developers/gitignore/api/r</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> The <span style="color: #0000BB;">"/tmp/RtmpZFIP9g/example-gitlab/.gitignore"</span> has been created.</span></span></code></pre></div>
 <p>This then creates a directory tree, with template files for starting
 your analysis. Open the newly created project via the
 <code>.Rproj</code> file.</p>
@@ -292,12 +417,9 @@ rprojecttemplate”).</p>
 GitHub-friendly template are:</p>
 <ul>
 <li>
-<code>.gitlab-ci.yml</code> - basic template for CI that is required
-to add a Pages site</li>
-<li>
 <code>index.rmd</code> - the landing page for GitLab pages needs to
 within the main repository (as opposed to <code>docs/</code>). Remember
-to knit this page everytime an edit is made, using
+to knit this page every time an edit is made, using
 <code>devtools::build_rmd("index.rmd")</code>.</li>
 </ul>
 </div>
@@ -325,27 +447,30 @@ Show/hide
 <span><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2023-02-15</span></span>
+<span><span class="co">#&gt;  date     2023-03-08</span></span>
 <span><span class="co">#&gt;  pandoc   2.18 @ /usr/local/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">package         </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version</span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span></span>
-<span><span class="co">#&gt;  BiocManager        1.30.19 <span style="color: #555555;">2022-10-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  BiocManager        1.30.20 <span style="color: #555555;">2023-02-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  BiocStyle        * 2.24.0  <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
-<span><span class="co">#&gt;  bookdown           0.32    <span style="color: #555555;">2023-01-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  bookdown           0.33    <span style="color: #555555;">2023-03-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  bslib              0.4.2   <span style="color: #555555;">2022-12-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  cachem             1.0.6   <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  cachem             1.0.7   <span style="color: #555555;">2023-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  cli                3.6.0   <span style="color: #555555;">2023-01-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  clipr              0.8.0   <span style="color: #555555;">2022-02-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  crayon             1.5.2   <span style="color: #555555;">2022-09-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  curl               5.0.0   <span style="color: #555555;">2023-01-12</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  desc               1.4.2   <span style="color: #555555;">2022-09-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  digest             0.6.31  <span style="color: #555555;">2022-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  dplyr              1.1.0   <span style="color: #555555;">2023-01-29</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  ellipsis           0.3.2   <span style="color: #555555;">2021-04-29</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  evaluate           0.20    <span style="color: #555555;">2023-01-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  fansi              1.0.4   <span style="color: #555555;">2023-01-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  fastmap            1.1.0   <span style="color: #555555;">2021-01-25</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  fastmap            1.1.1   <span style="color: #555555;">2023-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  fs                 1.6.1   <span style="color: #555555;">2023-02-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  generics           0.1.3   <span style="color: #555555;">2022-07-05</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  gitignore          0.1.5   <span style="color: #555555;">2021-10-31</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  glue               1.6.2   <span style="color: #555555;">2022-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  here               1.0.1   <span style="color: #555555;">2020-12-13</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  hms                1.1.2   <span style="color: #555555;">2022-08-19</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
@@ -365,7 +490,7 @@ Show/hide
 <span><span class="co">#&gt;  readr              2.1.4   <span style="color: #555555;">2023-02-10</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  rlang              1.0.6   <span style="color: #555555;">2022-09-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  rmarkdown          2.20    <span style="color: #555555;">2023-01-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
-<span><span class="co">#&gt;  rprojecttemplate * 0.99.1  <span style="color: #555555;">2023-02-15</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
+<span><span class="co">#&gt;  rprojecttemplate * 0.99.1  <span style="color: #555555;">2023-03-08</span> <span style="color: #555555;">[1]</span> <span style="color: #555555;">Bioconductor</span></span></span>
 <span><span class="co">#&gt;  rprojroot          2.0.3   <span style="color: #555555;">2022-04-02</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  sass               0.4.5   <span style="color: #555555;">2023-01-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
 <span><span class="co">#&gt;  sessioninfo      * 1.2.2   <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM (R 4.2.0)</span></span></span>
