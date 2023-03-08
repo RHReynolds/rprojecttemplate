@@ -7,6 +7,7 @@ NEW FEATURES
 
 FIXES
 
+* [#0c8450e](https://github.com/RHReynolds/rprojecttemplate/commit/0c8450ed928ce5b17aac16aa07ab9ce0293c9d28): fixed error with `setup_project()` that prevented `.gitignore` being copied over when generating project
 * [#481ad7c](https://github.com/RHReynolds/rprojecttemplate/commit/481ad7c9829f6a06f9881ac26464ccdce5df25c0): fixed error with `update_index()` that occurred when `include_number = FALSE`
 
 # rprojecttemplate 0.99.0
