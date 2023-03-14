@@ -65,7 +65,7 @@ infrastructure,as well as adding some useful files to start the project.</p>
 <span>  <span class="va">path</span>,</span>
 <span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"github"</span>, <span class="st">"gitlab"</span><span class="op">)</span>,</span>
 <span>  add_gitignore <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  gitignore_template <span class="op">=</span> <span class="st">"r"</span></span>
+<span>  gitignore_templates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"r"</span>, <span class="st">"macos"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -85,9 +85,10 @@ github or gitlab. Default is github.</p></dd>
 Default is TRUE.</p></dd>
 
 
-<dt>gitignore_template</dt>
+<dt>gitignore_templates</dt>
 <dd><p>chr. A character vector using values included in
-<code><a href="https://docs.ropensci.org/gitignore/reference/gi_available_templates.html" class="external-link">gi_available_templates</a></code>. Default is "r".</p></dd>
+<code><a href="https://docs.ropensci.org/gitignore/reference/gi_available_templates.html" class="external-link">gi_available_templates</a></code>. Default is "r" and
+"macos".</p></dd>
 
 </dl></div>
     <div id="value">
