@@ -24,7 +24,7 @@
 # SOFTWARE.
 
 rstudio_setup_gitlab <- function(path, type = "gitlab", ...) {
-  # create project
-  rprojecttemplate::setup_project(path = path, type = "gitlab")
-  invisible(NULL)
+    # create project
+    rprojecttemplate::setup_project(path = path, type = "gitlab")
+    invisible(NULL)
 }

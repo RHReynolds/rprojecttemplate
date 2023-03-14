@@ -34,5 +34,3 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r, echo=FALSE, message=FALSE}
 rprojecttemplate::update_index(html_folder = "docs")
 ```
-
-
