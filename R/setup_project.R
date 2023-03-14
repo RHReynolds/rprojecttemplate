@@ -34,8 +34,9 @@
 #'   github or gitlab. Default is github.
 #' @param add_gitignore logical. Specify whether gitignore should be added.
 #'   Default is TRUE.
-#' @param gitignore_template chr. A character vector using values included in
-#'   \code{\link[gitignore]{gi_available_templates}}. Default is "r".
+#' @param gitignore_templates chr. A character vector using values included in
+#'   \code{\link[gitignore]{gi_available_templates}}. Default is "r" and
+#'   "macos".
 #'
 #' @return Project setup with folders and files necessary for a standard
 #'   research project.
@@ -52,7 +53,7 @@ setup_project <-
       path,
       type = c("github", "gitlab"),
       add_gitignore = TRUE,
-      gitignore_template = "r"
+      gitignore_templates = c("r", "macos")
       ) {
         stopifnot(is.character(path))
         proj_path <- fs::path_abs(path)
@@ -155,26 +156,11 @@ setup_project <-
           )
         )
         
-        
         if(add_gitignore == TRUE){
-          # fetch gitignore template
-          cli::cli_alert_info(
-            c(
-              "Fetching the specified gitignore template."
+          write_gitignore(
+            path = proj_path,
+            gitignore_templates = gitignore_templates
             )
-          )
-          gi_template <- gitignore::gi_fetch_templates(gitignore_template, copy_to_clipboard = TRUE)
-          
-          # write gitignore
-          xfun::write_utf8(
-            gi_template, 
-            file.path(proj_path, ".gitignore")
-            )
-          cli::cli_alert_success(
-            c(
-              "The {.val {file.path(proj_path, '.gitignore')}} has been created."
-            )
-          )
         }
         
     }
@@ -187,3 +173,43 @@ path_remove_spaces <- function(path) {
     path_as_vector[last_dir] <- gsub(" +", "-", path_as_vector[last_dir])
     fs::path_join(path_as_vector)
 }
+
+write_gitignore <- 
+  function(path, gitignore_templates){
+    
+    # fetch gitignore template
+    cli::cli_alert_info(
+      c(
+        "Fetching the specified gitignore template."
+      )
+    )
+    
+    gi_template <- 
+      gitignore::gi_fetch_templates(
+        gitignore_templates, 
+        copy_to_clipboard = TRUE
+        )
+    
+    # check whether template ignores any of the folders added
+    folders_created <- 
+      fs::dir_ls(path, type = "directory") %>% 
+      basename() %>% 
+      stringr::str_c(., "/", sep = "")
+    
+    gi_template_splitted <- unlist(strsplit(gi_template, "\n"))
+    
+    gi_template_splitted <- 
+      gi_template_splitted[!(gi_template_splitted %in% folders_created)]
+    
+    # write gitignore
+    xfun::write_utf8(
+      gi_template_splitted, 
+      file.path(path, ".gitignore")
+    )
+    cli::cli_alert_success(
+      c(
+        "The {.val {file.path(path, '.gitignore')}} has been created."
+      )
+    )
+    
+  }
