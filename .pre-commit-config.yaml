@@ -1,6 +1,6 @@
 repos:
 -   repo: https://github.com/lorenzwalthert/precommit
-    rev: v0.1.3.9133
+    rev: v0.3.2.9003
     hooks:
     -   id: readme-rmd-rendered # make sure README.Rmd is rendered to README.md
     -   id: parsable-R
@@ -31,7 +31,7 @@ repos:
           )$
 
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+    rev: v4.4.0
     hooks:
     -   id: check-added-large-files # make sure no large files commited
     -   id: end-of-file-fixer
