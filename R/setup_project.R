@@ -34,8 +34,9 @@
 #'   github or gitlab. Default is github.
 #' @param add_gitignore logical. Specify whether gitignore should be added.
 #'   Default is TRUE.
-#' @param gitignore_template chr. A character vector using values included in
-#'   \code{\link[gitignore]{gi_available_templates}}. Default is "r".
+#' @param gitignore_templates chr. A character vector using values included in
+#'   \code{\link[gitignore]{gi_available_templates}}. Default is "r" and
+#'   "macos".
 #'
 #' @return Project setup with folders and files necessary for a standard
 #'   research project.
@@ -48,26 +49,23 @@
 #' setup_project(new_proj_name)
 #' }
 setup_project <-
-    function(
-      path,
-      type = c("github", "gitlab"),
-      add_gitignore = TRUE,
-      gitignore_template = "r"
-      ) {
+    function(path,
+             type = c("github", "gitlab"),
+             add_gitignore = TRUE,
+             gitignore_templates = c("r", "macos")) {
         stopifnot(is.character(path))
         proj_path <- fs::path_abs(path)
         proj_name <- fs::path_file(proj_path)
-        
-        if(length(type) > 1){
-          rlang::warn(
-            c(
-              "More than one project type provided.", 
-              " User must choose between github/gitlab-friendly format.", 
-              " Default github-friendly template used." 
+
+        if (length(type) > 1) {
+            rlang::warn(
+                c(
+                    "More than one project type provided.",
+                    " User must choose between github/gitlab-friendly format.",
+                    " Default github-friendly template used."
+                )
             )
-          )
-          type <- "github"
-          
+            type <- "github"
         }
 
         if (grepl(" ", basename(proj_path))) {
@@ -86,97 +84,77 @@ setup_project <-
                 )
             )
         }
-        
-        if(type == "github"){
-          
-          proj_template <-
-            find_template(
-              "projects",
-              "basic-analysis"
+
+        if (type == "github") {
+            proj_template <-
+                find_template(
+                    "projects",
+                    "basic-analysis"
+                )
+            fs::dir_copy(proj_template, new_path = proj_path)
+
+            withr::with_dir(
+                new = proj_path,
+                code = {
+                    update_template(
+                        "DESCRIPTION",
+                        data = list(ProjectName = proj_name)
+                    )
+                    update_template(
+                        "template-Rproj",
+                        paste0(proj_name, ".Rproj")
+                    )
+                    fs::file_delete("template-Rproj")
+                    update_template(
+                        "README.rmd",
+                        data = list(ProjectName = proj_name)
+                    )
+                }
             )
-          fs::dir_copy(proj_template, new_path = proj_path)
-          
-          withr::with_dir(
-            new = proj_path,
-            code = {
-              update_template(
-                "DESCRIPTION",
-                data = list(ProjectName = proj_name)
-              )
-              update_template(
-                "template-Rproj",
-                paste0(proj_name, ".Rproj")
-              )
-              fs::file_delete("template-Rproj")
-              update_template(
-                "README.rmd",
-                data = list(ProjectName = proj_name)
-              )
-            }
-          )
-          
-        } else if (type == "gitlab"){
-          
-          proj_template <-
-            find_template(
-              "projects",
-              "basic-analysis-gitlab"
+        } else if (type == "gitlab") {
+            proj_template <-
+                find_template(
+                    "projects",
+                    "basic-analysis-gitlab"
+                )
+            fs::dir_copy(proj_template, new_path = proj_path)
+
+            withr::with_dir(
+                new = proj_path,
+                code = {
+                    update_template(
+                        "DESCRIPTION",
+                        data = list(ProjectName = proj_name)
+                    )
+                    update_template(
+                        "template-Rproj",
+                        paste0(proj_name, ".Rproj")
+                    )
+                    fs::file_delete("template-Rproj")
+                    update_template(
+                        "README.rmd",
+                        data = list(ProjectName = proj_name)
+                    )
+                    update_template(
+                        "index.rmd",
+                        data = list(ProjectName = proj_name)
+                    )
+                }
             )
-          fs::dir_copy(proj_template, new_path = proj_path)
-          
-          withr::with_dir(
-            new = proj_path,
-            code = {
-              update_template(
-                "DESCRIPTION",
-                data = list(ProjectName = proj_name)
-              )
-              update_template(
-                "template-Rproj",
-                paste0(proj_name, ".Rproj")
-              )
-              fs::file_delete("template-Rproj")
-              update_template(
-                "README.rmd",
-                data = list(ProjectName = proj_name)
-              )
-              update_template(
-                "index.rmd",
-                data = list(ProjectName = proj_name)
-              )
-            }
-          )
-          
         }
-        
+
         cli::cli_alert_success(
-          c(
-            "The {.val {proj_path}} folder has been created."
-          )
+            c(
+                "The {.val {proj_path}} folder has been created."
+            )
         )
-        
-        
-        if(add_gitignore == TRUE){
-          # fetch gitignore template
-          cli::cli_alert_info(
-            c(
-              "Fetching the specified gitignore template."
+
+        if (add_gitignore == TRUE) {
+            write_gitignore(
+                path = proj_path,
+                gitignore_templates = gitignore_templates
             )
-          )
-          gi_template <- gitignore::gi_fetch_templates(gitignore_template, copy_to_clipboard = TRUE)
-          
-          # write gitignore
-          xfun::write_utf8(
-            gi_template, 
-            file.path(proj_path, ".gitignore")
-            )
-          cli::cli_alert_success(
-            c(
-              "The {.val {file.path(proj_path, '.gitignore')}} has been created."
-            )
-          )
         }
-        
     }
 
 # Utilities -----------------------------------------------------
@@ -187,3 +165,41 @@ path_remove_spaces <- function(path) {
     path_as_vector[last_dir] <- gsub(" +", "-", path_as_vector[last_dir])
     fs::path_join(path_as_vector)
 }
+
+write_gitignore <-
+    function(path, gitignore_templates) {
+        # fetch gitignore template
+        cli::cli_alert_info(
+            c(
+                "Fetching the specified gitignore template."
+            )
+        )
+
+        gi_template <-
+            gitignore::gi_fetch_templates(
+                gitignore_templates,
+                copy_to_clipboard = TRUE
+            )
+
+        # check whether template ignores any of the folders added
+        folders_created <-
+            fs::dir_ls(path, type = "directory") %>%
+            basename() %>%
+            stringr::str_c(., "/", sep = "")
+
+        gi_template_splitted <- unlist(strsplit(gi_template, "\n"))
+
+        gi_template_splitted <-
+            gi_template_splitted[!(gi_template_splitted %in% folders_created)]
+
+        # write gitignore
+        xfun::write_utf8(
+            gi_template_splitted,
+            file.path(path, ".gitignore")
+        )
+        cli::cli_alert_success(
+            c(
+                "The {.val {file.path(path, '.gitignore')}} has been created."
+            )
+        )
+    }

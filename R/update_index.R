@@ -33,46 +33,40 @@
 #' @export
 #'
 
-update_index <- function(
-    html_folder = "docs", 
-    include_number = TRUE, 
-    include_description = TRUE,
-    md_formatting = TRUE
-    ) {
-  
-  # html_folder = "inst/templates/projects/basic-analysis-gitlab/docs/"
-  contents_df <- 
-    .generate_contents_df(
-      html_folder, 
-      include_number = include_number, 
-      include_description = include_description
-      ) 
-  
-  if(md_formatting){
-    
-    contents_df <- 
-      contents_df %>% 
-      knitr::kable()
-    
-  }
-  
-  return(contents_df)
-  
+update_index <- function(html_folder = "docs",
+                         include_number = TRUE,
+                         include_description = TRUE,
+                         md_formatting = TRUE) {
+    # html_folder = "inst/templates/projects/basic-analysis-gitlab/docs/"
+    contents_df <-
+        .generate_contents_df(
+            html_folder,
+            include_number = include_number,
+            include_description = include_description
+        )
+
+    if (md_formatting) {
+        contents_df <-
+            contents_df %>%
+            knitr::kable()
+    }
+
+    return(contents_df)
 }
 
 #' Generate table of contents
 #'
 #' `.generate_contents_df` will generate a [`tibble`][tibble::tbl_df-class]
 #' object with the following columns:
-#'   \itemize{ 
+#'   \itemize{
 #'   \item `n`: number assigned to analysis (if argument `include_number` is TRUE)
 #'   \item `title`: name of analysis
 #'   \item `link`: link to analysis
 #'   \item `description`: description of the analysis, as taken from `.rmd`
 #'   }
-#' 
+#'
 #' @inheritParams update_index
-#' 
+#'
 #' @importFrom here here
 #' @importFrom cli cli_h1 cli_alert_danger
 #' @importFrom tibble tibble
@@ -80,93 +74,87 @@ update_index <- function(
 #' @importFrom dplyr mutate
 #' @importFrom tidyr pivot_wider everything
 #' @importFrom stringr str_extract_all str_c
-#' 
+#'
 #' @keywords internal
 #' @noRd
 
-.generate_contents_df <- function(html_folder, include_number, include_description){
-  
-  cli::cli_h1("Generating table of contents for: {.val {html_folder}}")
-  
-  if(!dir.exists(here::here(html_folder))){
-    stop(
-      cli::cli_alert_danger(
-        "{.val {html_folder}} does not exist in the project root directory 
+.generate_contents_df <- function(html_folder, include_number, include_description) {
+    cli::cli_h1("Generating table of contents for: {.val {html_folder}}")
+
+    if (!dir.exists(here::here(html_folder))) {
+        stop(
+            cli::cli_alert_danger(
+                "{.val {html_folder}} does not exist in the project root directory
         {.val {here::here()}}. Have you provided the correct path?",
-        wrap = TRUE
-      )
-    )
-  }
-  
-  # Get a list of all the RMD/HTML pairings
-  file_df <-
-    tibble::tibble(
-      file_paths = 
-        list.files(
-          path = here::here(html_folder), 
-          pattern = "*.html|*.[rR]md", 
-          full.names = FALSE
-        ) %>% 
-        file.path(html_folder, .)
-    ) %>% 
-    dplyr::mutate(
-      file_name = 
-        basename(file_paths) %>% 
-        fs::path_ext_remove(),
-      file_ext = 
-        fs::path_ext(file_paths) %>% 
-        stringr::str_to_lower()
-    ) %>% 
-    tidyr::pivot_wider(
-      names_from = file_ext, 
-      values_from = file_paths
-      ) 
-  
-  contents_df <- .extract_title(file_df)
-  
-  if(include_description){
-    
-    contents_df <- 
-      contents_df %>% 
-      dplyr::inner_join(
-        .extract_description(file_df),
-        by = c("file_name", "html", "rmd")
-      ) %>% 
-      dplyr::select(
-        Title, Description, everything()
-      ) %>% 
-      dplyr::arrange(Title)
-    
-  }
-  
-  if(include_number){
-    
-    contents_df <- 
-      contents_df %>% 
-      dplyr::group_by(file_name) %>% 
-      dplyr::mutate(
-        No = 
-          stringr::str_extract_all(file_name, "[:digit:]") %>% 
-          unlist() %>% 
-          as.character() %>% 
-          stringr::str_c(collapse = "")
-      ) %>% 
-      dplyr::select(
-        No, everything()
-      ) %>% 
-      dplyr::arrange(
-        No
-      )
-    
-  }
-  
-  contents_df <- 
-    contents_df %>%
-    dplyr::ungroup() %>% 
-    dplyr::select(-file_name, -html, -rmd)
-  
-  return(contents_df)
-  
+                wrap = TRUE
+            )
+        )
+    }
+
+    # Get a list of all the RMD/HTML pairings
+    file_df <-
+        tibble::tibble(
+            file_paths =
+                list.files(
+                    path = here::here(html_folder),
+                    pattern = "*.html|*.[rR]md",
+                    full.names = FALSE
+                ) %>%
+                    file.path(html_folder, .)
+        ) %>%
+        dplyr::mutate(
+            file_name =
+                basename(file_paths) %>%
+                    fs::path_ext_remove(),
+            file_ext =
+                fs::path_ext(file_paths) %>%
+                    stringr::str_to_lower()
+        ) %>%
+        tidyr::pivot_wider(
+            names_from = file_ext,
+            values_from = file_paths
+        )
+
+    contents_df <- .extract_title(file_df)
+
+    if (include_description) {
+        contents_df <-
+            contents_df %>%
+            dplyr::inner_join(
+                .extract_description(file_df),
+                by = c("file_name", "html", "rmd")
+            ) %>%
+            dplyr::select(
+                Title, Description, everything()
+            ) %>%
+            dplyr::arrange(Title)
+    }
+
+    if (include_number) {
+        contents_df <-
+            contents_df %>%
+            dplyr::group_by(file_name) %>%
+            dplyr::mutate(
+                No =
+                    stringr::str_extract_all(file_name, "[:digit:]") %>%
+                        unlist() %>%
+                        as.character() %>%
+                        stringr::str_c(collapse = "")
+            ) %>%
+            dplyr::select(
+                No, everything()
+            ) %>%
+            dplyr::arrange(
+                No
+            )
+    }
+
+    contents_df <-
+        contents_df %>%
+        dplyr::ungroup() %>%
+        dplyr::select(-file_name, -html, -rmd)
+
+    return(contents_df)
 }
 
 #' Extract title of `.rmd`
@@ -178,7 +166,7 @@ update_index <- function(
 #'   columns: \itemize{ \item `file_name`: base name of the file, without any
 #'   file extension \item `html`: file path to the html version of the file
 #'   \item `rmd`: file path to the rmd version of the file }
-#'   
+#'
 #' @return `file_df` with an added column containing the title
 #'
 #' @importFrom stringr str_detect str_extract str_remove_all
@@ -187,44 +175,40 @@ update_index <- function(
 #' @keywords internal
 #' @noRd
 
-.extract_title <- function(file_df){
-  
-  file_df <- 
-    file_df %>% 
-    dplyr::mutate(
-      Title = ""
-    )
-  
-  for(i in seq_len(nrow(file_df))){
-    
-    lines <- 
-      file_df[i, ][["rmd"]] %>% 
-      readr::read_lines()
-    
-    title <- 
-      lines[stringr::str_detect(lines,  'title: \\".*\\"')] %>% 
-      stringr::str_extract('\\".*\\"') %>% 
-      stringr::str_remove_all('\\"')
-    
-    file_df[i, c("Title")] <- title
-    
-  }
-  
-  file_df <- 
-    file_df %>% 
-    dplyr::mutate(
-      Title =
-        stringr::str_c(
-          "[", Title, "]",
-          "(", html,")"
+.extract_title <- function(file_df) {
+    file_df <-
+        file_df %>%
+        dplyr::mutate(
+            Title = ""
         )
-    ) %>% 
-    dplyr::select(
-      Title, everything()
-    )
-  
-  return(file_df)
-  
+
+    for (i in seq_len(nrow(file_df))) {
+        lines <-
+            file_df[i, ][["rmd"]] %>%
+            readr::read_lines()
+
+        title <-
+            lines[stringr::str_detect(lines, 'title: \\".*\\"')] %>%
+            stringr::str_extract('\\".*\\"') %>%
+            stringr::str_remove_all('\\"')
+
+        file_df[i, c("Title")] <- title
+    }
+
+    file_df <-
+        file_df %>%
+        dplyr::mutate(
+            Title =
+                stringr::str_c(
+                    "[", Title, "]",
+                    "(", html, ")"
+                )
+        ) %>%
+        dplyr::select(
+            Title, everything()
+        )
+
+    return(file_df)
 }
 
 #' Extract description of `.rmd`
@@ -246,30 +230,25 @@ update_index <- function(
 #' @keywords internal
 #' @noRd
 
-.extract_description <- function(file_df){
-  
-  file_df <- 
-    file_df %>% 
-    dplyr::mutate(
-      Description = ""
-    )
-  
-  for(i in seq_len(nrow(file_df))){
-    
-    lines <- 
-      file_df[i, ][["rmd"]] %>% 
-      readr::read_lines()
-    
-    description <- 
-      lines[stringr::str_detect(lines,  "> Aim:")] %>% 
-      stringr::str_remove_all("> Aim:") %>% 
-      stringr::str_trim()
-    
-    file_df[i, c("Description")] <- description
-    
-  }
-  
-  return(file_df)
-  
-}
+.extract_description <- function(file_df) {
+    file_df <-
+        file_df %>%
+        dplyr::mutate(
+            Description = ""
+        )
 
+    for (i in seq_len(nrow(file_df))) {
+        lines <-
+            file_df[i, ][["rmd"]] %>%
+            readr::read_lines()
+
+        description <-
+            lines[stringr::str_detect(lines, "> Aim:")] %>%
+            stringr::str_remove_all("> Aim:") %>%
+            stringr::str_trim()
+
+        file_df[i, c("Description")] <- description
+    }
+
+    return(file_df)
+}

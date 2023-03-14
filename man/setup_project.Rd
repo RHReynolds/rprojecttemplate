@@ -9,7 +9,7 @@ setup_project(
   path,
   type = c("github", "gitlab"),
   add_gitignore = TRUE,
-  gitignore_template = "r"
+  gitignore_templates = c("r", "macos")
 )
 }
 \arguments{
@@ -21,8 +21,9 @@ github or gitlab. Default is github.}
 \item{add_gitignore}{logical. Specify whether gitignore should be added.
 Default is TRUE.}
 
-\item{gitignore_template}{chr. A character vector using values included in
-\code{\link[gitignore]{gi_available_templates}}. Default is "r".}
+\item{gitignore_templates}{chr. A character vector using values included in
+\code{\link[gitignore]{gi_available_templates}}. Default is "r" and
+"macos".}
 }
 \value{
 Project setup with folders and files necessary for a standard
