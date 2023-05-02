@@ -192,7 +192,7 @@ update_index <- function(html_folder = "docs",
             stringr::str_extract('\\".*\\"') %>%
             stringr::str_remove_all('\\"')
 
-        file_df[i, c("Title")] <- title
+        file_df$Title[i] <- title
     }
 
     file_df <-
@@ -247,7 +247,7 @@ update_index <- function(html_folder = "docs",
             stringr::str_remove_all("> Aim:") %>%
             stringr::str_trim()
 
-        file_df[i, c("Description")] <- description
+        file_df$Description[i] <- description
     }
 
     return(file_df)
