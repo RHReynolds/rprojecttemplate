@@ -13,6 +13,7 @@ FIXES
     * `add_gitignore` - default set to TRUE for backwards compatibility
     * `gitignore_template` - default set to "r" and "macos" for backwards compatibility
 * [#481ad7c](https://github.com/RHReynolds/rprojecttemplate/commit/481ad7c9829f6a06f9881ac26464ccdce5df25c0): fixed error with `update_index()` that occurred when `include_number = FALSE`
+* [#ad7d312](https://github.com/RHReynolds/rprojecttemplate/commit/ad7d3122221d04215316ed4f0e68c92912141c06): fixed error with `update_index()` that occurs in newer versions of [R](https://github.com/tidyverse/dplyr/issues/6793#issuecomment-1475178979)
 
 # rprojecttemplate 0.99.0
 
