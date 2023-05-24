@@ -97,7 +97,7 @@ update_index <- function(html_folder = "docs",
             file_paths =
                 list.files(
                     path = here::here(html_folder),
-                    pattern = "*.html|*.[rR]md",
+                    pattern = "*.html|*.[rR]md|*.[qQ]md",
                     full.names = FALSE
                 ) %>%
                     file.path(html_folder, .)
@@ -108,10 +108,16 @@ update_index <- function(html_folder = "docs",
                     fs::path_ext_remove(),
             file_ext =
                 fs::path_ext(file_paths) %>%
-                    stringr::str_to_lower()
+                    stringr::str_to_lower(),
+            file_type = 
+              dplyr::case_when(
+                file_ext %in% c("rmd", "Rmd", "qmd", "Qmd") ~ "md",
+                file_ext == "html" ~ "html"
+              )
         ) %>%
+        dplyr::select(-file_ext) %>%
         tidyr::pivot_wider(
-            names_from = file_ext,
+            names_from = file_type,
             values_from = file_paths
         )
 
@@ -122,7 +128,7 @@ update_index <- function(html_folder = "docs",
             contents_df %>%
             dplyr::inner_join(
                 .extract_description(file_df),
-                by = c("file_name", "html", "rmd")
+                by = c("file_name", "html", "md")
             ) %>%
             dplyr::select(
                 Title, Description, everything()
@@ -157,15 +163,20 @@ update_index <- function(html_folder = "docs",
     return(contents_df)
 }
 
-#' Extract title of `.rmd`
+#' Extract title of `.rmd`/`.qmd`
 #'
-#' `.extract_title` will extract the title of the analysis from the `.rmd`, and
-#' return the file_df with an added column that includes the analysis title.
+#' `.extract_title` will extract the title of the analysis from the
+#' `.rmd`/`.qmd`, and return the file_df with an added column that includes the
+#' analysis title.
 #'
 #' @param file_df [`tibble`][tibble::tbl_df-class] object with the following
-#'   columns: \itemize{ \item `file_name`: base name of the file, without any
-#'   file extension \item `html`: file path to the html version of the file
-#'   \item `rmd`: file path to the rmd version of the file }
+#'   columns: 
+#'   \itemize{ 
+#'   \item `file_name`: base name of the file, without any
+#'   file extension 
+#'   \item `html`: file path to the html version of the file
+#'   \item `md`: file path to the `.rmd`/`.qmd` version of the file 
+#'   }
 #'
 #' @return `file_df` with an added column containing the title
 #'
@@ -184,11 +195,11 @@ update_index <- function(html_folder = "docs",
 
     for (i in seq_len(nrow(file_df))) {
         lines <-
-            file_df[i, ][["rmd"]] %>%
+            file_df[i, ][["md"]] %>%
             readr::read_lines()
 
         title <-
-            lines[stringr::str_detect(lines, 'title: \\".*\\"')] %>%
+            lines[stringr::str_detect(lines, '^title: \\".*\\"')] %>%
             stringr::str_extract('\\".*\\"') %>%
             stringr::str_remove_all('\\"')
 
@@ -211,14 +222,13 @@ update_index <- function(html_folder = "docs",
     return(file_df)
 }
 
-#' Extract description of `.rmd`
+#' Extract description of `.rmd`/`.qmd`
 #'
 #' `.extract_description` will extract the description of the analysis from the
-#' `.rmd`. This function assumes that that this description is described in the
-#' section preceded by "> Aim:" and ended with "<br><br>", as in the example
-#' analysis templates available in both templates. Both of these templates were
-#' generated using:
-#' https://github.com/RHReynolds/rmdplate.
+#' `.rmd`/`.qmd`. This function assumes that that this description is described
+#' in the section preceded by "> Aim:" and ended with "<br><br>", as in the
+#' example analysis templates available in both templates. Both of these
+#' templates were generated using: https://github.com/RHReynolds/rmdplate.
 #'
 #' @inheritParams .extract_title
 #'
@@ -239,7 +249,7 @@ update_index <- function(html_folder = "docs",
 
     for (i in seq_len(nrow(file_df))) {
         lines <-
-            file_df[i, ][["rmd"]] %>%
+            file_df[i, ][["md"]] %>%
             readr::read_lines()
 
         description <-
