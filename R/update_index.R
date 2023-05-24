@@ -158,7 +158,7 @@ update_index <- function(html_folder = "docs",
     contents_df <-
         contents_df %>%
         dplyr::ungroup() %>%
-        dplyr::select(-file_name, -html, -rmd)
+        dplyr::select(-file_name, -html, -md)
 
     return(contents_df)
 }
