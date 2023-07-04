@@ -8,6 +8,7 @@ NEW FEATURES
 
 FIXES
 
+* [#6b6c460](https://github.com/RHReynolds/rprojecttemplate/commit/6b6c4604f55ff08a70338b3e196f17ce537daf2f): permit use of `.[qQ]md` in addition to `.[rR]md` in `update_index()`
 * [#dafe54c](https://github.com/RHReynolds/rprojecttemplate/commit/dafe54c7b4d079a80e96db4199f8bbddd352d5f5): fixed bug where some created folders were ignored in fetched gitignore templates
 * [#0c8450e](https://github.com/RHReynolds/rprojecttemplate/commit/0c8450ed928ce5b17aac16aa07ab9ce0293c9d28): fixed error with `setup_project()` that prevented `.gitignore` being copied over when generating project. Resulted in addition of 2 new arguments:
     * `add_gitignore` - default set to TRUE for backwards compatibility
