@@ -23,7 +23,7 @@ ordering (e.g. "\verb{01_example.rmd}"). If no numbering requested, analyses
 will be ordered alphabetically. Default is TRUE.}
 
 \item{include_description}{boolean. Whether to include a description of the
-analysis, which will be taken straight from the \code{.rmd}. This function
+analysis, which will be taken straight from the \code{.rmd}/\code{.qmd}. This function
 assumes that that this description is described in the section preceded by
 "> Aim:" and ended with "\if{html}{\out{<br>}}\if{html}{\out{<br>}}", as in the example analysis templates
 available in both templates. Both of these templates were generated using:
@@ -34,7 +34,7 @@ be returned with md formatting. Default is TRUE.}
 }
 \value{
 A \code{\link[tibble:tbl_df-class]{tibble}}, containing the title of each
-analysis, as extracted from the \code{.rmd} in the user-specified folder, with a
+analysis, as extracted from the \code{.rmd}/\code{.qmd} in the user-specified folder, with a
 link to the corresponding \code{.html}. It will optionally also contain the
 number of the analysis and a description. By default, it will be returned
 with md formatting, but this can be set to FALSE.
@@ -42,8 +42,8 @@ with md formatting, but this can be set to FALSE.
 \description{
 \code{update_index} will generate a \code{\link[tibble:tbl_df-class]{tibble}}
 object and, if selected, display it with md formatting. It will contain the
-title of the analysis, as extracted from the \code{.rmd} with a link to the
+title of the analysis, as extracted from the \code{.rmd}/\code{.qmd} with a link to the
 corresponding \code{.html}. If chosen, it will also show the number of the
 analysis and a description of the analysis, as extracted from the file name
-and \code{.rmd}, respectively.
+and \code{.rmd}/\code{.qmd}, respectively.
 }
