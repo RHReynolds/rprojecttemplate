@@ -2,10 +2,10 @@
 #'
 #' @description `update_index` will generate a [`tibble`][tibble::tbl_df-class]
 #'   object and, if selected, display it with md formatting. It will contain the
-#'   title of the analysis, as extracted from the `.rmd` with a link to the
+#'   title of the analysis, as extracted from the `.rmd`/`.qmd` with a link to the
 #'   corresponding `.html`. If chosen, it will also show the number of the
 #'   analysis and a description of the analysis, as extracted from the file name
-#'   and `.rmd`, respectively.
+#'   and `.rmd`/`.qmd`, respectively.
 #'
 #' @param html_folder Character. The folder containing `.html`s to be referenced
 #'   in the contents table. This path should be relative to the root folder of
@@ -16,7 +16,7 @@
 #'   ordering (e.g. "`01_example.rmd`"). If no numbering requested, analyses
 #'   will be ordered alphabetically. Default is TRUE.
 #' @param include_description boolean. Whether to include a description of the
-#'   analysis, which will be taken straight from the `.rmd`. This function
+#'   analysis, which will be taken straight from the `.rmd`/`.qmd`. This function
 #'   assumes that that this description is described in the section preceded by
 #'   "> Aim:" and ended with "<br><br>", as in the example analysis templates
 #'   available in both templates. Both of these templates were generated using:
@@ -25,7 +25,7 @@
 #'   be returned with md formatting. Default is TRUE.
 #'
 #' @return A [`tibble`][tibble::tbl_df-class], containing the title of each
-#'   analysis, as extracted from the `.rmd` in the user-specified folder, with a
+#'   analysis, as extracted from the `.rmd`/`.qmd` in the user-specified folder, with a
 #'   link to the corresponding `.html`. It will optionally also contain the
 #'   number of the analysis and a description. By default, it will be returned
 #'   with md formatting, but this can be set to FALSE.
@@ -62,7 +62,7 @@ update_index <- function(html_folder = "docs",
 #'   \item `n`: number assigned to analysis (if argument `include_number` is TRUE)
 #'   \item `title`: name of analysis
 #'   \item `link`: link to analysis
-#'   \item `description`: description of the analysis, as taken from `.rmd`
+#'   \item `description`: description of the analysis, as taken from `.rmd`/`.qmd`
 #'   }
 #'
 #' @inheritParams update_index
