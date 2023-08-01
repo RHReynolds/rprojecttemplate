@@ -56,7 +56,7 @@ This repository uses [`renv`](https://rstudio.github.io/renv/index.html) to crea
 For more information on collaborating with `renv`, please refer to this [link](https://rstudio.github.io/renv/articles/collaborating.html).
 
 ### `DESCRIPTION`
-<!-- Consider using renv for reproducibility. Delete this section if you will not be doing this. -->
+<!-- Consider using renv for reproducibility. Delete this section if you will be use renv. -->
 
 *TODO: Alternatively, if packages are managed using `usethis::use_package("packagename")` through the `DESCRIPTION` file, modify the text below.* 
 
@@ -67,6 +67,90 @@ through the `DESCRIPTION` file, installing dependencies is as easy as opening th
 ```{.r}
 # install.packages("remotes")
 remotes::install_deps()
+```
+
+### Private packages
+<!-- Include this section if using privately-hosted GitLab packages. -->
+
+*TODO: Modify username/repo[@ref] with a relevant example.* 
+
+This repository uses packages hosted privately on GitLab. See `Remotes` in the `DESCRIPTION` file. An example of how these can be installed is shown below.
+
+The command requires a GitLab [personal access token](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html) with `api` and `read_api` access, and requires that it is set in the system environment.
+
+```{.r}
+# requires GITLAB personal access token to be defined in the system environment
+Sys.setenv(GITLAB_PAT = "YOUR-GITLAB-PAT")
+remotes::install_gitlab(repo = "username/repo[@ref]")
+```
+
+### `targets` for pipeline management
+<!-- Include this section if using targets for pipeline management. -->
+
+This project has been built through a pipeline programming procedure using the [`targets`](https://github.com/ropensci/targets) package, a Make-like pipeline tool for statistics and data science in R. To run the pipeline run `targets::tar_make()`.
+
+If you would prefer to run the pipeline in the background, the following code can be used, and will generate a log file of the process in the [`./logs`](./logs) directory.
+
+```{r eval = FALSE}
+targets::tar_make(
+  callr_function = callr::r_bg,
+  callr_arguments =
+    list(
+      stdout = here::here(
+        "logs",
+        stringr::str_c(format(Sys.time(), "%Y%m%d_%H%M%S_"), "target.log")
+      ),
+      stderr = here::here(
+        "logs",
+        stringr::str_c(format(Sys.time(), "%Y%m%d_%H%M%S_"), "target.err")
+      )
+    )
+)
+```
+
+### AWS
+<!-- Include this section if sync-ing files for AWS. -->
+
+This project uses files stored in AWS S3. As such, it is important that:
+
+1. Credentials are set in `~/.aws/credentials` and that the credentials you want to use are set as your default profile.
+2. The [`aws cli`](https://aws.amazon.com/cli/) is installed in the environment running it.
+3. Importantly, if you are running this project using `renv`, make sure the PATH in the environment includes the path to the bin with the `aws cli`. 
+    - You can check the R environment using `Sys.getenv()`.
+    - If it is not present, you can edit the user `.Renviron` with `usethis::edit_r_environ()`. 
+    
+### Docker
+
+The docker image is built on `rocker/rstudio`, which comes pre-installed with RStudio Server. As such, it is possible to run the docker image and access RStudio via a browser. To do this, use the following command:
+
+```{bash, eval = F}
+# Substitute <PASSWORD> with a password
+# Username is always rstudio
+# Use -v flag to mount any folders you may want to use e.g. the code
+# As docker is run from within the docker, mount docker.sock as volume
+# Don't forget to mount ref data for sequoia
+docker run -ti -e PASSWORD=<PASSWORD> \
+-e ROOT=true \
+-p 8880:8787 \
+-v /home/ec2-user/{{ProjectName}}/:/home/ec2-user/{{ProjectName}}/ \
+-v /var/run/docker.sock:/var/run/docker.sock \
+-v /home/ec2-user/.aws/:/home/ec2-user/.aws/ \
+{{ProjectName}}:v0.99.0
+```
+
+If you have run the docker on your laptop, you will now be able to access R Studio server by going to the address `localhost:8880` on your local browser.
+
+If you have run the docker from an EC2 instance, and want to connect to the R Studio server process from your local machine, you simply need to go to the address `<EC2_IP>:8880` on your local browser, where `<EC2_IP>` is the instance's public IP.
+
+### Building docker image
+
+`GITLAB_ACCESS_TOKEN`, a GitLab [personal access token](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html) with `api` and `read_api` access, needs to be an exported variable in your `sh` environment. This could be exported, for example, in your `.bashrc`/`.zshrc` using `export GITLAB_ACCESS_TOKEN=`. 
+
+```{bash, eval = F}
+docker build \
+--build-arg gitlab_access_token="$GITLAB_ACCESS_TOKEN" \
+--squash \
+-t {{ProjectName}}:v0.99.0 .
 ```
 
 ## License

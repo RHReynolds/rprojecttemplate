@@ -1,3 +1,13 @@
+# rprojecttemplate 0.99.2
+
+NEW FEATURES
+
+* Updated GitLab README.Rmd to include additional sections (using private GitLab packages, targets, AWS, Docker).
+
+FIXES
+
+*
+
 # rprojecttemplate 0.99.1
 
 NEW FEATURES
